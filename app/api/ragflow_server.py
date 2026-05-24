@@ -32,18 +32,18 @@ import threading
 import uuid
 import faulthandler
 
-from app.api.apps import app
-from app.api.db.runtime_config import RuntimeConfig
-from app.api.db.services.document_service import DocumentService
-from app.common.file_utils import get_project_base_directory
-from app.common import settings
-from app.api.db.db_models import init_database_tables as init_web_db
-from app.api.db.init_data import init_web_data, init_superuser
-from app.common.versions import get_ragflow_version
-from app.common.config_utils import show_configs
-from app.common.mcp_tool_call_conn import shutdown_all_mcp_sessions
-from app.common.log_utils import init_root_logger
-from app.rag.utils.redis_conn import RedisDistributedLock
+from api.apps import app
+from api.db.runtime_config import RuntimeConfig
+from api.db.services.document_service import DocumentService
+from common.file_utils import get_project_base_directory
+from common import settings
+from api.db.db_models import init_database_tables as init_web_db
+from api.db.init_data import init_web_data, init_superuser
+from common.versions import get_ragflow_version
+from common.config_utils import show_configs
+from common.mcp_tool_call_conn import shutdown_all_mcp_sessions
+from common.log_utils import init_root_logger
+from rag.utils.redis_conn import RedisDistributedLock
 
 stop_event = threading.Event()
 
