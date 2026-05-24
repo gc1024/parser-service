@@ -28,13 +28,13 @@ from collections import Counter
 # from openpyxl import load_workbook, Workbook
 from dateutil.parser import parse as datetime_parse
 
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from deepdoc.parser.figure_parser import vision_figure_parser_figure_xlsx_wrapper
-from common.constants import MAXIMUM_TASK_PAGE_NUMBER
-from deepdoc.parser.utils import get_text
-from rag.nlp import rag_tokenizer, tokenize, tokenize_table
-from deepdoc.parser import ExcelParser
-from common import settings
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.deepdoc.parser.figure_parser import vision_figure_parser_figure_xlsx_wrapper
+from app.common.constants import MAXIMUM_TASK_PAGE_NUMBER
+from app.deepdoc.parser.utils import get_text
+from app.rag.nlp import rag_tokenizer, tokenize, tokenize_table
+from app.deepdoc.parser import ExcelParser
+from app.common import settings
 
 logger = logging.getLogger(__name__)
 

@@ -13,9 +13,9 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 #
-from common.constants import LLMType
-from common.exceptions import ArgumentException
-from api.db.services.tenant_llm_service import TenantLLMService
+from app.common.constants import LLMType
+from app.common.exceptions import ArgumentException
+from app.api.db.services.tenant_llm_service import TenantLLMService
 
 _KEY_TO_MODEL_TYPE = {
     "llm_id": LLMType.CHAT,

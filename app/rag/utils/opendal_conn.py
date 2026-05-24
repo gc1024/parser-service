@@ -4,8 +4,8 @@ import pymysql
 import re
 from urllib.parse import quote_plus
 
-from common.config_utils import get_base_config
-from common.decorator import singleton
+from app.common.config_utils import get_base_config
+from app.common.decorator import singleton
 
 CREATE_TABLE_SQL = """
 CREATE TABLE IF NOT EXISTS `{}` (

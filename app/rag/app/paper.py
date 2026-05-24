@@ -18,14 +18,14 @@ import logging
 import copy
 import re
 
-from deepdoc.parser.figure_parser import vision_figure_parser_pdf_wrapper
-from common.constants import ParserType, MAXIMUM_PAGE_NUMBER
-from rag.nlp import rag_tokenizer, tokenize, tokenize_table, add_positions, bullets_category, title_frequency, \
+from app.deepdoc.parser.figure_parser import vision_figure_parser_pdf_wrapper
+from app.common.constants import ParserType, MAXIMUM_PAGE_NUMBER
+from app.rag.nlp import rag_tokenizer, tokenize, tokenize_table, add_positions, bullets_category, title_frequency, \
     tokenize_chunks, attach_media_context
-from deepdoc.parser import PdfParser
+from app.deepdoc.parser import PdfParser
 import numpy as np
-from rag.app.naive import by_plaintext, PARSERS
-from common.parser_config_utils import normalize_layout_recognizer
+from app.rag.app.naive import by_plaintext, PARSERS
+from app.common.parser_config_utils import normalize_layout_recognizer
 
 
 class Pdf(PdfParser):

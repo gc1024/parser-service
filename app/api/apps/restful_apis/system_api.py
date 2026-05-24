@@ -21,18 +21,18 @@ from timeit import default_timer as timer
 
 from quart import jsonify
 
-from api.apps import login_required, current_user
-from api.utils.api_utils import get_json_result, get_data_error_result, server_error_response, generate_confirmation_token
-from api.utils.health_utils import run_health_checks, get_oceanbase_status
-from common.versions import get_ragflow_version
-from common.time_utils import current_timestamp, datetime_format
-from api.db.db_models import APIToken
-from api.db.services.api_service import APITokenService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.user_service import UserTenantService
-from common.log_utils import get_log_levels, set_log_level
-from common import settings
-from rag.utils.redis_conn import REDIS_CONN
+from app.api.apps import login_required, current_user
+from app.api.utils.api_utils import get_json_result, get_data_error_result, server_error_response, generate_confirmation_token
+from app.api.utils.health_utils import run_health_checks, get_oceanbase_status
+from app.common.versions import get_ragflow_version
+from app.common.time_utils import current_timestamp, datetime_format
+from app.api.db.db_models import APIToken
+from app.api.db.services.api_service import APITokenService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.user_service import UserTenantService
+from app.common.log_utils import get_log_levels, set_log_level
+from app.common import settings
+from app.rag.utils.redis_conn import REDIS_CONN
 
 @manager.route("/system/ping", methods=["GET"])  # noqa: F821
 async def ping():

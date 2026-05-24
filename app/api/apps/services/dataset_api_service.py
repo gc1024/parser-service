@@ -17,19 +17,19 @@ import logging
 import json
 import os
 import re
-from common.constants import PAGERANK_FLD
-from common import settings
-from api.db.db_models import File
-from api.db.services.document_service import DocumentService, queue_raptor_o_graphrag_tasks
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.connector_service import Connector2KbService
-from api.db.services.task_service import GRAPH_RAPTOR_FAKE_DOC_ID, TaskService
-from api.db.services.user_service import TenantService, UserService, UserTenantService
-from api.db.services.tenant_llm_service import TenantLLMService
-from common.constants import FileSource, StatusEnum
-from api.utils.api_utils import deep_merge, get_parser_config, remap_dictionary_keys, verify_embedding_availability
+from app.common.constants import PAGERANK_FLD
+from app.common import settings
+from app.api.db.db_models import File
+from app.api.db.services.document_service import DocumentService, queue_raptor_o_graphrag_tasks
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.connector_service import Connector2KbService
+from app.api.db.services.task_service import GRAPH_RAPTOR_FAKE_DOC_ID, TaskService
+from app.api.db.services.user_service import TenantService, UserService, UserTenantService
+from app.api.db.services.tenant_llm_service import TenantLLMService
+from app.common.constants import FileSource, StatusEnum
+from app.api.utils.api_utils import deep_merge, get_parser_config, remap_dictionary_keys, verify_embedding_availability
 
 _VALID_INDEX_TYPES = {"graph", "raptor", "mindmap"}
 
@@ -153,7 +153,7 @@ async def delete_datasets(tenant_id: str, ids: list = None, delete_all: bool = F
 
         # Drop index for this dataset
         try:
-            from rag.nlp import search
+            from app.rag.nlp import search
 
             idxnm = search.index_name(kb.tenant_id)
             settings.docStoreConn.delete_idx(idxnm, kb_id)
@@ -316,12 +316,12 @@ async def update_dataset(tenant_id: str, dataset_id: str, req: dict):
             return False, "'pagerank' can only be set when doc_engine is elasticsearch"
 
         if req["pagerank"] > 0:
-            from rag.nlp import search
+            from app.rag.nlp import search
 
             settings.docStoreConn.update({"kb_id": kb.id}, {PAGERANK_FLD: req["pagerank"]}, search.index_name(kb.tenant_id), kb.id)
         else:
             # Elasticsearch requires PAGERANK_FLD be non-zero!
-            from rag.nlp import search
+            from app.rag.nlp import search
 
             settings.docStoreConn.update({"exists": PAGERANK_FLD}, {"remove": PAGERANK_FLD}, search.index_name(kb.tenant_id), kb.id)
     if "parse_type" in req:
@@ -408,7 +408,7 @@ async def get_knowledge_graph(dataset_id: str, tenant_id: str):
     req = {"kb_id": [dataset_id], "knowledge_graph_kwd": ["graph"]}
 
     obj = {"graph": {}, "mind_map": {}}
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     if not settings.docStoreConn.index_exist(search.index_name(kb.tenant_id), dataset_id):
         return True, obj
@@ -445,8 +445,8 @@ def delete_knowledge_graph(dataset_id: str, tenant_id: str):
     if not KnowledgebaseService.accessible(dataset_id, tenant_id):
         return False, "No authorization."
     _, kb = KnowledgebaseService.get_by_id(dataset_id)
-    from rag.nlp import search
-    from rag.graphrag.phase_markers import clear_phase_markers
+    from app.rag.nlp import search
+    from app.rag.graphrag.phase_markers import clear_phase_markers
     settings.docStoreConn.delete({"knowledge_graph_kwd": ["graph", "subgraph", "entity", "relation", "community_report"]},
                                  search.index_name(kb.tenant_id), dataset_id)
     # Wiping the graph invalidates any phase-completion markers used to
@@ -619,7 +619,7 @@ def get_flattened_metadata(dataset_ids: list[str], tenant_id: str):
         if not KnowledgebaseService.accessible(dataset_id, tenant_id):
             return False, f"No authorization for dataset '{dataset_id}'"
 
-    from api.db.services.doc_metadata_service import DocMetadataService
+    from app.api.db.services.doc_metadata_service import DocMetadataService
 
     return True, DocMetadataService.get_flatted_meta_by_kbs(dataset_ids)
 
@@ -681,7 +681,7 @@ def delete_tags(dataset_id: str, tenant_id: str, tags: list[str]):
     if not ok:
         return False, "Invalid Dataset ID"
 
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     for t in tags:
         settings.docStoreConn.update({"tag_kwd": t, "kb_id": [dataset_id]}, {"remove": {"tag_kwd": t}}, search.index_name(kb.tenant_id), dataset_id)
@@ -724,7 +724,7 @@ def list_ingestion_logs(
     if not KnowledgebaseService.accessible(dataset_id, tenant_id):
         return False, "No authorization."
 
-    from api.db.services.pipeline_operation_log_service import PipelineOperationLogService
+    from app.api.db.services.pipeline_operation_log_service import PipelineOperationLogService
 
     allowed_log_types = {"dataset", "file"}
     if log_type not in allowed_log_types:
@@ -767,7 +767,7 @@ def get_ingestion_log(dataset_id: str, tenant_id: str, log_id: str):
     if not KnowledgebaseService.accessible(dataset_id, tenant_id):
         return False, "No authorization."
 
-    from api.db.services.pipeline_operation_log_service import PipelineOperationLogService
+    from app.api.db.services.pipeline_operation_log_service import PipelineOperationLogService
 
     fields = PipelineOperationLogService.get_dataset_logs_fields()
     log = PipelineOperationLogService.model.select(*fields).where((PipelineOperationLogService.model.id == log_id) & (PipelineOperationLogService.model.kb_id == dataset_id)).first()
@@ -810,7 +810,7 @@ def delete_index(dataset_id: str, tenant_id: str, index_type: str, wipe: bool = 
     logging.info("delete_index: dataset=%s index_type=%s wipe=%s", dataset_id, index_type, wipe)
 
     if task_id:
-        from rag.utils.redis_conn import REDIS_CONN
+        from app.rag.utils.redis_conn import REDIS_CONN
 
         try:
             REDIS_CONN.set(f"{task_id}-cancel", "x")
@@ -819,8 +819,8 @@ def delete_index(dataset_id: str, tenant_id: str, index_type: str, wipe: bool = 
         TaskService.delete_by_id(task_id)
 
     if wipe and index_type == "graph":
-        from rag.nlp import search
-        from rag.graphrag.phase_markers import clear_phase_markers
+        from app.rag.nlp import search
+        from app.rag.graphrag.phase_markers import clear_phase_markers
         settings.docStoreConn.delete({"knowledge_graph_kwd": ["graph", "subgraph", "entity", "relation", "community_report"]},
                                      search.index_name(kb.tenant_id), dataset_id)
         # Wiping the graph invalidates any phase-completion markers used to
@@ -828,7 +828,7 @@ def delete_index(dataset_id: str, tenant_id: str, index_type: str, wipe: bool = 
         clear_phase_markers(dataset_id)
         logging.info("delete_index: cleared GraphRAG artefacts and phase markers for dataset=%s", dataset_id)
     elif wipe and index_type == "raptor":
-        from rag.nlp import search
+        from app.rag.nlp import search
 
         settings.docStoreConn.delete({"raptor_kwd": ["raptor"]}, search.index_name(kb.tenant_id), dataset_id)
 
@@ -896,7 +896,7 @@ def rename_tag(dataset_id: str, tenant_id: str, from_tag: str, to_tag: str):
     if not ok:
         return False, "Invalid Dataset ID"
 
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     settings.docStoreConn.update({"tag_kwd": from_tag, "kb_id": [dataset_id]}, {"remove": {"tag_kwd": from_tag.strip()}, "add": {"tag_kwd": to_tag}}, search.index_name(kb.tenant_id), dataset_id)
 
@@ -912,19 +912,19 @@ async def search(dataset_id: str, tenant_id: str, req: dict):
     :param req: search request
     :return: (success, result) or (success, error_message)
     """
-    from api.db.joint_services.tenant_model_service import (
+    from app.api.db.joint_services.tenant_model_service import (
         get_model_config_by_id,
         get_model_config_by_type_and_name,
         get_tenant_default_model_by_type,
     )
-    from api.db.services.doc_metadata_service import DocMetadataService
-    from api.db.services.llm_service import LLMBundle
-    from api.db.services.search_service import SearchService
-    from api.db.services.user_service import UserTenantService
-    from common.constants import LLMType
-    from common.metadata_utils import apply_meta_data_filter
-    from rag.app.tag import label_question
-    from rag.prompts.generator import cross_languages, keyword_extraction
+    from app.api.db.services.doc_metadata_service import DocMetadataService
+    from app.api.db.services.llm_service import LLMBundle
+    from app.api.db.services.search_service import SearchService
+    from app.api.db.services.user_service import UserTenantService
+    from app.common.constants import LLMType
+    from app.common.metadata_utils import apply_meta_data_filter
+    from app.rag.app.tag import label_question
+    from app.rag.prompts.generator import cross_languages, keyword_extraction
 
     logging.debug(
         "search(dataset=%s, tenant=%s, question_len=%s)",
@@ -1095,15 +1095,15 @@ def check_embedding(dataset_id: str, tenant_id: str, req: dict):
     import random
 
     import numpy as np
-    from common.constants import RetCode
-    from common.doc_store.doc_store_base import OrderByExpr
-    from rag.nlp import search
+    from app.common.constants import RetCode
+    from app.common.doc_store.doc_store_base import OrderByExpr
+    from app.rag.nlp import search
 
-    from api.db.joint_services.tenant_model_service import (
+    from app.api.db.joint_services.tenant_model_service import (
         get_model_config_by_type_and_name,
     )
-    from api.db.services.llm_service import LLMBundle
-    from common.constants import LLMType
+    from app.api.db.services.llm_service import LLMBundle
+    from app.common.constants import LLMType
 
     def _guess_vec_field(src: dict):
         for k in src or {}:
@@ -1293,19 +1293,19 @@ async def search_datasets(tenant_id: str, req: dict):
     :param req: search request containing dataset_ids and other params
     :return: (success, result) or (success, error_message)
     """
-    from api.db.joint_services.tenant_model_service import (
+    from app.api.db.joint_services.tenant_model_service import (
         get_model_config_by_id,
         get_model_config_by_type_and_name,
         get_tenant_default_model_by_type,
     )
-    from api.db.services.doc_metadata_service import DocMetadataService
-    from api.db.services.llm_service import LLMBundle
-    from api.db.services.search_service import SearchService
-    from api.db.services.user_service import UserTenantService
-    from common.constants import LLMType
-    from common.metadata_utils import apply_meta_data_filter
-    from rag.app.tag import label_question
-    from rag.prompts.generator import cross_languages, keyword_extraction
+    from app.api.db.services.doc_metadata_service import DocMetadataService
+    from app.api.db.services.llm_service import LLMBundle
+    from app.api.db.services.search_service import SearchService
+    from app.api.db.services.user_service import UserTenantService
+    from app.common.constants import LLMType
+    from app.common.metadata_utils import apply_meta_data_filter
+    from app.rag.app.tag import label_question
+    from app.rag.prompts.generator import cross_languages, keyword_extraction
 
     kb_ids = req.get("dataset_ids", [])
     page = int(req.get("page", 1))

@@ -1,6 +1,6 @@
 from enum import Enum
 
-from common.data_source.config import DocumentSource
+from app.common.data_source.config import DocumentSource
 
 SLIM_BATCH_SIZE = 500
 # NOTE: do not need https://www.googleapis.com/auth/documents.readonly

@@ -28,17 +28,17 @@ from sqlalchemy import Column, String, Integer, JSON, Double, Row
 from sqlalchemy.dialects.mysql import LONGTEXT, TEXT
 from sqlalchemy.sql.type_api import TypeEngine
 
-from common.constants import PAGERANK_FLD, TAG_FLD
-from common.decorator import singleton
-from common.doc_store.doc_store_base import MatchExpr, OrderByExpr, FusionExpr, MatchTextExpr, MatchDenseExpr
-from common.doc_store.ob_conn_base import (
+from app.common.constants import PAGERANK_FLD, TAG_FLD
+from app.common.decorator import singleton
+from app.common.doc_store.doc_store_base import MatchExpr, OrderByExpr, FusionExpr, MatchTextExpr, MatchDenseExpr
+from app.common.doc_store.ob_conn_base import (
     OBConnectionBase, get_value_str,
     vector_search_template, vector_column_pattern,
     fulltext_index_name_template, doc_meta_column_names,
     doc_meta_column_types,
 )
-from common.float_utils import get_float
-from rag.nlp import rag_tokenizer
+from app.common.float_utils import get_float
+from app.rag.nlp import rag_tokenizer
 
 logger = logging.getLogger('ragflow.ob_conn')
 

@@ -20,8 +20,8 @@ import json
 import re
 import os
 import numpy as np
-from rag.nlp import rag_tokenizer
-from common.file_utils import get_project_base_directory
+from app.rag.nlp import rag_tokenizer
+from app.common.file_utils import get_project_base_directory
 
 
 class Dealer:

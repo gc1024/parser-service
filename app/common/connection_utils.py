@@ -21,7 +21,7 @@ from typing import Any, Callable, Coroutine, Optional, Type, Union
 import asyncio
 from functools import wraps
 from quart import make_response, jsonify
-from common.constants import RetCode
+from app.common.constants import RetCode
 
 TimeoutException = Union[Type[BaseException], BaseException]
 OnTimeoutCallback = Union[Callable[..., Any], Coroutine[Any, Any, Any]]

@@ -17,10 +17,10 @@ from datetime import datetime
 
 from peewee import fn
 
-from common.constants import StatusEnum
-from api.db.db_models import DB, Search, User
-from api.db.services.common_service import CommonService
-from common.time_utils import current_timestamp, datetime_format
+from app.common.constants import StatusEnum
+from app.api.db.db_models import DB, Search, User
+from app.api.db.services.common_service import CommonService
+from app.common.time_utils import current_timestamp, datetime_format
 
 
 class SearchService(CommonService):

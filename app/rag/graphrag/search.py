@@ -21,15 +21,15 @@ from copy import deepcopy
 import json_repair
 import pandas as pd
 
-from common.misc_utils import get_uuid
-from rag.graphrag.query_analyze_prompt import PROMPTS
-from rag.graphrag.utils import get_entity_type2samples, get_llm_cache, set_llm_cache, get_relation
-from common.token_utils import num_tokens_from_string
+from app.common.misc_utils import get_uuid
+from app.rag.graphrag.query_analyze_prompt import PROMPTS
+from app.rag.graphrag.utils import get_entity_type2samples, get_llm_cache, set_llm_cache, get_relation
+from app.common.token_utils import num_tokens_from_string
 
-from rag.nlp.search import Dealer, index_name
-from common.float_utils import get_float
-from common import settings
-from common.doc_store.doc_store_base import OrderByExpr
+from app.rag.nlp.search import Dealer, index_name
+from app.common.float_utils import get_float
+from app.common import settings
+from app.common.doc_store.doc_store_base import OrderByExpr
 
 
 class KGSearch(Dealer):
@@ -315,11 +315,11 @@ class KGSearch(Dealer):
 
 if __name__ == "__main__":
     import argparse
-    from common.constants import LLMType
-    from api.db.services.knowledgebase_service import KnowledgebaseService
-    from api.db.services.llm_service import LLMBundle
-    from api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type, get_model_config_by_id, get_model_config_by_type_and_name
-    from rag.nlp import search
+    from app.common.constants import LLMType
+    from app.api.db.services.knowledgebase_service import KnowledgebaseService
+    from app.api.db.services.llm_service import LLMBundle
+    from app.api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type, get_model_config_by_id, get_model_config_by_type_and_name
+    from app.rag.nlp import search
 
     settings.init_settings()
     parser = argparse.ArgumentParser()

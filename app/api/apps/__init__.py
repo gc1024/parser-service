@@ -22,19 +22,19 @@ from pathlib import Path
 from quart import Blueprint, Quart, request, g, current_app, session, jsonify
 from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
 from quart_cors import cors
-from common.constants import StatusEnum, RetCode
-from api.db.db_models import close_connection, APIToken
-from api.db.services import UserService
-from api.utils.json_encode import CustomJSONEncoder
-from api.utils import commands
+from app.common.constants import StatusEnum, RetCode
+from app.api.db.db_models import close_connection, APIToken
+from app.api.db.services import UserService
+from app.api.utils.json_encode import CustomJSONEncoder
+from app.api.utils import commands
 
 from quart_auth import Unauthorized as QuartAuthUnauthorized
 from werkzeug.exceptions import Unauthorized as WerkzeugUnauthorized
 from quart_schema import QuartSchema
-from common import settings
-from api.utils.api_utils import server_error_response, get_json_result
-from api.constants import API_VERSION
-from common.misc_utils import get_uuid
+from app.common import settings
+from app.api.utils.api_utils import server_error_response, get_json_result
+from app.api.constants import API_VERSION
+from app.common.misc_utils import get_uuid
 
 settings.init_settings()
 
@@ -325,7 +325,7 @@ pages_dir = [
 client_urls_prefix = [register_page(path) for directory in pages_dir for path in search_pages_path(directory)]
 
 # Register backward compatibility routes for deprecated APIs
-from api.apps.backward_compat import register_backward_compat_routes
+from app.api.apps.backward_compat import register_backward_compat_routes
 
 register_backward_compat_routes(app)
 

@@ -18,14 +18,14 @@ from io import BytesIO
 
 from bs4 import BeautifulSoup
 from docx import Document
-from api.db.services.llm_service import LLMBundle
-from api.db.joint_services.tenant_model_service import (
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.joint_services.tenant_model_service import (
     get_model_config_by_type_and_name,
     get_tenant_default_model_by_type,
 )
-from common.constants import LLMType
-from deepdoc.parser.figure_parser import VisionFigureParser
-from rag.nlp import is_english, random_choices, remove_contents_table
+from app.common.constants import LLMType
+from app.deepdoc.parser.figure_parser import VisionFigureParser
+from app.rag.nlp import is_english, random_choices, remove_contents_table
 
 
 def remove_toc(items):

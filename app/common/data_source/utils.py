@@ -33,7 +33,7 @@ from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 from slack_sdk.web import SlackResponse
 
-from common.data_source.config import (
+from app.common.data_source.config import (
     _ITERATION_LIMIT,
     _NOTION_CALL_TIMEOUT,
     _SLACK_LIMIT,
@@ -44,9 +44,9 @@ from common.data_source.config import (
     SIZE_THRESHOLD_BUFFER,
     BlobType,
 )
-from common.data_source.exceptions import RateLimitTriedTooManyTimesError
-from common.data_source.interfaces import CT, CheckpointedConnector, CheckpointOutputWrapper, ConfluenceUser, LoadFunction, OnyxExtensionType, SecondsSinceUnixEpoch, TokenResponse
-from common.data_source.models import BasicExpertInfo, Document
+from app.common.data_source.exceptions import RateLimitTriedTooManyTimesError
+from app.common.data_source.interfaces import CT, CheckpointedConnector, CheckpointOutputWrapper, ConfluenceUser, LoadFunction, OnyxExtensionType, SecondsSinceUnixEpoch, TokenResponse
+from app.common.data_source.models import BasicExpertInfo, Document
 
 _TZ_SUFFIX_PATTERN = re.compile(r"([+-])([\d:]+)$")
 

@@ -17,7 +17,7 @@
 import io
 import base64
 import pickle
-from api.utils.common import bytes_to_string, string_to_bytes
+from app.api.utils.common import bytes_to_string, string_to_bytes
 
 safe_module = {
     'numpy',

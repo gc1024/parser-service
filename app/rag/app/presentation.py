@@ -22,14 +22,14 @@ from io import BytesIO
 
 from pypdf import PdfReader as pdf2_read
 
-from deepdoc.parser import PdfParser, PlainParser
-from deepdoc.parser.ppt_parser import RAGFlowPptParser
-from rag.app.naive import by_plaintext, PARSERS
-from common.constants import MAXIMUM_PAGE_NUMBER
-from common.parser_config_utils import normalize_layout_recognizer
-from rag.nlp import rag_tokenizer
-from rag.nlp import tokenize
-from rag.utils.lazy_image import ensure_pil_image, is_image_like
+from app.deepdoc.parser import PdfParser, PlainParser
+from app.deepdoc.parser.ppt_parser import RAGFlowPptParser
+from app.rag.app.naive import by_plaintext, PARSERS
+from app.common.constants import MAXIMUM_PAGE_NUMBER
+from app.common.parser_config_utils import normalize_layout_recognizer
+from app.rag.nlp import rag_tokenizer
+from app.rag.nlp import tokenize
+from app.rag.utils.lazy_image import ensure_pil_image, is_image_like
 
 
 class Pdf(PdfParser):

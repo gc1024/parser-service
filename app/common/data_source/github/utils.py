@@ -3,7 +3,7 @@ import logging
 from github import Github
 from github.Repository import Repository
 
-from common.data_source.models import ExternalAccess
+from app.common.data_source.models import ExternalAccess
 
 from .models import SerializedRepository
 

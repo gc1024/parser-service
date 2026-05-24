@@ -22,11 +22,11 @@ import threading
 from functools import partial
 from typing import Generator
 
-from api.db.db_models import LLM
-from api.db.services.common_service import CommonService
-from api.db.services.tenant_llm_service import LLM4Tenant, TenantLLMService
-from common.constants import LLMType
-from common.token_utils import num_tokens_from_string
+from app.api.db.db_models import LLM
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.tenant_llm_service import LLM4Tenant, TenantLLMService
+from app.common.constants import LLMType
+from app.common.token_utils import num_tokens_from_string
 
 
 class LLMService(CommonService):

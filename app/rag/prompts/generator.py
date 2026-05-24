@@ -22,11 +22,11 @@ from copy import deepcopy
 from typing import Tuple
 from jinja2.sandbox import SandboxedEnvironment
 import json_repair
-from common.misc_utils import hash_str2int
-from rag.nlp import rag_tokenizer
-from rag.prompts.template import load_prompt
-from common.constants import TAG_FLD
-from common.token_utils import encoder, num_tokens_from_string
+from app.common.misc_utils import hash_str2int
+from app.rag.nlp import rag_tokenizer
+from app.rag.prompts.template import load_prompt
+from app.common.constants import TAG_FLD
+from app.common.token_utils import encoder, num_tokens_from_string
 
 STOP_TOKEN = "<|STOP|>"
 COMPLETE_TASK = "complete_task"
@@ -242,10 +242,10 @@ async def question_proposal(chat_mdl, content, topn=3):
 
 
 async def full_question(tenant_id=None, llm_id=None, messages=[], language=None, chat_mdl=None):
-    from common.constants import LLMType
-    from api.db.services.llm_service import LLMBundle
-    from api.db.services.tenant_llm_service import TenantLLMService
-    from api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name
+    from app.common.constants import LLMType
+    from app.api.db.services.llm_service import LLMBundle
+    from app.api.db.services.tenant_llm_service import TenantLLMService
+    from app.api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name
 
     if not chat_mdl:
         if TenantLLMService.llm_id2llm_type(llm_id) == "image2text":
@@ -278,10 +278,10 @@ async def full_question(tenant_id=None, llm_id=None, messages=[], language=None,
 
 
 async def cross_languages(tenant_id, llm_id, query, languages=[]):
-    from common.constants import LLMType
-    from api.db.services.llm_service import LLMBundle
-    from api.db.services.tenant_llm_service import TenantLLMService
-    from api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
+    from app.common.constants import LLMType
+    from app.api.db.services.llm_service import LLMBundle
+    from app.api.db.services.tenant_llm_service import TenantLLMService
+    from app.api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
 
     if llm_id and TenantLLMService.llm_id2llm_type(llm_id) == "image2text":
         chat_model_config = get_model_config_by_type_and_name(tenant_id, LLMType.IMAGE2TEXT, llm_id)
@@ -541,7 +541,7 @@ async def gen_meta_filter(chat_mdl, meta_data: dict, query: str, constraints: di
 
 
 async def gen_json(system_prompt: str, user_prompt: str, chat_mdl, gen_conf={}, max_retry=2):
-    from rag.graphrag.utils import get_llm_cache, set_llm_cache
+    from app.rag.graphrag.utils import get_llm_cache, set_llm_cache
     cached = get_llm_cache(chat_mdl.llm_name, system_prompt, user_prompt, gen_conf)
     if cached:
         return json_repair.loads(cached)

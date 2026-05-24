@@ -16,15 +16,15 @@
 import logging
 from datetime import datetime
 
-from api.apps import login_required
-from api.db.services.task_service import TaskService, CANVAS_DEBUG_DOC_ID, GRAPH_RAPTOR_FAKE_DOC_ID
-from api.utils.api_utils import (
+from app.api.apps import login_required
+from app.api.db.services.task_service import TaskService, CANVAS_DEBUG_DOC_ID, GRAPH_RAPTOR_FAKE_DOC_ID
+from app.api.utils.api_utils import (
     get_json_result,
     get_request_json,
     validate_request,
 )
-from common.constants import RetCode, TaskStatus
-from rag.utils.redis_conn import REDIS_CONN
+from app.common.constants import RetCode, TaskStatus
+from app.rag.utils.redis_conn import REDIS_CONN
 
 
 @manager.route("/tasks/<task_id>/cancel", methods=["POST"])  # noqa: F821
@@ -88,7 +88,7 @@ async def _cancel_task(task_id):
     # If the task belongs to a document, also mark the document's run status as
     # cancelled so that the UI reflects the state correctly.
     try:
-        from api.db.services.document_service import DocumentService
+        from app.api.db.services.document_service import DocumentService
         doc_id = task.doc_id
         if doc_id and doc_id not in (CANVAS_DEBUG_DOC_ID, GRAPH_RAPTOR_FAKE_DOC_ID):
             _, doc = DocumentService.get_by_id(doc_id)

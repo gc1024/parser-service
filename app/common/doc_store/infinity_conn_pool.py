@@ -21,8 +21,8 @@ import infinity
 from infinity.connection_pool import ConnectionPool
 from infinity.errors import ErrorCode
 
-from common import settings
-from common.decorator import singleton
+from app.common import settings
+from app.common.decorator import singleton
 
 
 @singleton

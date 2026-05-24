@@ -20,7 +20,7 @@ import os
 import sys
 
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 sys.path.insert(
     0,
@@ -30,8 +30,8 @@ sys.path.insert(
                 os.path.abspath(__file__)),
             '../../')))
 
-from deepdoc.vision.seeit import draw_box
-from deepdoc.vision import OCR, init_in_out
+from app.deepdoc.vision.seeit import draw_box
+from app.deepdoc.vision import OCR, init_in_out
 import argparse
 import numpy as np
 

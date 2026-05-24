@@ -18,7 +18,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from common import settings
+from app.common import settings
 
 
 def store_chunk_image(bucket, name, image_binary):

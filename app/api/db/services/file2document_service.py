@@ -15,12 +15,12 @@
 #
 from datetime import datetime
 
-from common.constants import FileSource
-from api.db.db_models import DB
-from api.db.db_models import File, File2Document
-from api.db.services.common_service import CommonService
-from api.db.services.document_service import DocumentService
-from common.time_utils import current_timestamp, datetime_format
+from app.common.constants import FileSource
+from app.api.db.db_models import DB
+from app.api.db.db_models import File, File2Document
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.document_service import DocumentService
+from app.common.time_utils import current_timestamp, datetime_format
 
 
 class File2DocumentService(CommonService):

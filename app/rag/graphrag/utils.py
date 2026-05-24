@@ -1,7 +1,7 @@
 # Copyright (c) 2024 Microsoft Corporation.
 # Licensed under the MIT License
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 """
 Reference:
@@ -26,13 +26,13 @@ import numpy as np
 import xxhash
 from networkx.readwrite import json_graph
 
-from common.misc_utils import get_uuid
-from common.connection_utils import timeout
-from common.asyncio_utils import LoopLocalSemaphore
-from rag.nlp import rag_tokenizer, search
-from rag.utils.redis_conn import REDIS_CONN
-from common import settings
-from common.doc_store.doc_store_base import OrderByExpr
+from app.common.misc_utils import get_uuid
+from app.common.connection_utils import timeout
+from app.common.asyncio_utils import LoopLocalSemaphore
+from app.rag.nlp import rag_tokenizer, search
+from app.rag.utils.redis_conn import REDIS_CONN
+from app.common import settings
+from app.common.doc_store.doc_store_base import OrderByExpr
 
 GRAPH_FIELD_SEP = "<SEP>"
 

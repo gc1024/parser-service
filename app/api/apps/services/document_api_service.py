@@ -15,15 +15,15 @@
 #
 import logging
 
-from api.db.services.document_service import DocumentService
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from api.utils import validation_utils
-from common import settings
-from common.constants import TaskStatus
-from api.utils.api_utils import get_error_data_result, server_error_response, get_parser_config
-from api.utils.validation_utils import UpdateDocumentReq
-from rag.nlp import rag_tokenizer, search
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.api.utils import validation_utils
+from app.common import settings
+from app.common.constants import TaskStatus
+from app.api.utils.api_utils import get_error_data_result, server_error_response, get_parser_config
+from app.api.utils.validation_utils import UpdateDocumentReq
+from app.rag.nlp import rag_tokenizer, search
 
 
 def update_document_name_only(document_id, req_doc_name):

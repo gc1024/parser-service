@@ -18,9 +18,9 @@ import logging
 import os
 from typing import Any, Optional
 
-from deepdoc.parser.mineru_parser import MinerUParser
-from deepdoc.parser.opendataloader_parser import OpenDataLoaderParser
-from deepdoc.parser.paddleocr_parser import PaddleOCRParser
+from app.deepdoc.parser.mineru_parser import MinerUParser
+from app.deepdoc.parser.opendataloader_parser import OpenDataLoaderParser
+from app.deepdoc.parser.paddleocr_parser import PaddleOCRParser
 
 
 class Base:

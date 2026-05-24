@@ -24,35 +24,35 @@ from quart import request, make_response,send_file
 from peewee import OperationalError
 from pydantic import ValidationError
 
-from api.apps import login_required
-from api.constants import FILE_NAME_LEN_LIMIT, IMG_BASE64_PREFIX
-from api.apps.services.document_api_service import validate_document_update_fields, map_doc_keys, \
+from app.api.apps import login_required
+from app.api.constants import FILE_NAME_LEN_LIMIT, IMG_BASE64_PREFIX
+from app.api.apps.services.document_api_service import validate_document_update_fields, map_doc_keys, \
     map_doc_keys_with_run_status, update_document_name_only, update_chunk_method, update_document_status_only, \
     reset_document_for_reparse
-from api.db import VALID_FILE_TYPES, FileType
-from api.db.services import duplicate_name
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.db_models import Task
-from api.db.services.document_service import DocumentService
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.common.check_team_permission import check_kb_team_permission
-from api.db.services.task_service import TaskService, cancel_all_task_of
-from api.utils.api_utils import construct_json_result, get_data_error_result, get_error_data_result, get_result, get_json_result, \
+from app.api.db import VALID_FILE_TYPES, FileType
+from app.api.db.services import duplicate_name
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.db_models import Task
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.common.check_team_permission import check_kb_team_permission
+from app.api.db.services.task_service import TaskService, cancel_all_task_of
+from app.api.utils.api_utils import construct_json_result, get_data_error_result, get_error_data_result, get_result, get_json_result, \
     server_error_response, add_tenant_id_to_kwargs, get_request_json, get_error_argument_result, check_duplicate_ids
-from api.utils.validation_utils import (
+from app.api.utils.validation_utils import (
     UpdateDocumentReq, format_validation_error_message, validate_and_parse_json_request, DeleteDocumentReq,
 )
 
-from common import settings
-from common.constants import ParserType, RetCode, TaskStatus, SANDBOX_ARTIFACT_BUCKET
-from common.metadata_utils import convert_conditions, meta_filter, turn2jsonschema
-from common.misc_utils import get_uuid, thread_pool_exec
-from api.utils.file_utils import filename_type, thumbnail
-from api.utils.web_utils import CONTENT_TYPE_MAP, html2pdf, is_valid_url, apply_safe_file_response_headers
-from common.ssrf_guard import assert_url_is_safe
-from rag.nlp import search
+from app.common import settings
+from app.common.constants import ParserType, RetCode, TaskStatus, SANDBOX_ARTIFACT_BUCKET
+from app.common.metadata_utils import convert_conditions, meta_filter, turn2jsonschema
+from app.common.misc_utils import get_uuid, thread_pool_exec
+from app.api.utils.file_utils import filename_type, thumbnail
+from app.api.utils.web_utils import CONTENT_TYPE_MAP, html2pdf, is_valid_url, apply_safe_file_response_headers
+from app.common.ssrf_guard import assert_url_is_safe
+from app.rag.nlp import search
 
 
 @manager.route("/documents/upload", methods=["POST"])  # noqa: F821
@@ -1184,8 +1184,8 @@ def list_thumbnails():
       400:
         description: Missing document IDs
     """
-    from api.constants import IMG_BASE64_PREFIX
-    from api.db.services.document_service import DocumentService
+    from app.api.constants import IMG_BASE64_PREFIX
+    from app.api.db.services.document_service import DocumentService
 
     doc_ids = request.args.getlist("doc_ids")
     if not doc_ids:

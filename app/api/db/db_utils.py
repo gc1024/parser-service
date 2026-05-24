@@ -18,9 +18,9 @@ from functools import reduce
 
 from playhouse.pool import PooledMySQLDatabase
 
-from common.time_utils import current_timestamp, timestamp_to_date
+from app.common.time_utils import current_timestamp, timestamp_to_date
 
-from api.db.db_models import DB, DataBaseModel
+from app.api.db.db_models import DB, DataBaseModel
 
 
 @DB.connection_context()

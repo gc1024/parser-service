@@ -19,12 +19,12 @@ import os
 import requests
 from timeit import default_timer as timer
 
-from api.db.db_models import DB
-from rag.utils.redis_conn import REDIS_CONN
-from rag.utils.es_conn import ESConnection
-from rag.utils.infinity_conn import InfinityConnection
-from rag.utils.ob_conn import OBConnection
-from common import settings
+from app.api.db.db_models import DB
+from app.rag.utils.redis_conn import REDIS_CONN
+from app.rag.utils.es_conn import ESConnection
+from app.rag.utils.infinity_conn import InfinityConnection
+from app.rag.utils.ob_conn import OBConnection
+from app.common import settings
 
 
 def _ok_nok(ok: bool) -> str:

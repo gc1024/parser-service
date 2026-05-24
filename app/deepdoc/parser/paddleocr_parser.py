@@ -29,16 +29,16 @@ import pdfplumber
 import requests
 from PIL import Image
 
-from common.constants import MAXIMUM_PAGE_NUMBER
+from app.common.constants import MAXIMUM_PAGE_NUMBER
 
 try:
-    from deepdoc.parser.pdf_parser import RAGFlowPdfParser
+    from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
 except Exception:
 
     class RAGFlowPdfParser:
         pass
 
-from deepdoc.parser.utils import extract_pdf_outlines
+from app.deepdoc.parser.utils import extract_pdf_outlines
 
 
 AlgorithmType = Literal["PaddleOCR-VL", "PP-OCRv5", "PP-StructureV3", "PaddleOCR-VL-1.5"]

@@ -20,7 +20,7 @@ import time
 from functools import partial
 from typing import Any
 from agent.component.base import ComponentBase, ComponentParamBase
-from common.connection_utils import timeout
+from app.common.connection_utils import timeout
 
 
 class ProcessParamBase(ComponentParamBase):

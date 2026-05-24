@@ -27,9 +27,9 @@ from ollama import Client
 from openai import OpenAI
 from zhipuai import ZhipuAI
 
-from common.log_utils import log_exception
-from common.token_utils import num_tokens_from_string, truncate, total_token_count_from_response
-from common import settings
+from app.common.log_utils import log_exception
+from app.common.token_utils import num_tokens_from_string, truncate, total_token_count_from_response
+from app.common import settings
 import logging
 import base64
 
@@ -1091,7 +1091,7 @@ class VolcEngineEmbed(Base):
         return item["embedding"]
 
     def _encode_texts(self, texts: list[str]):
-        from common.http_client import sync_request
+        from app.common.http_client import sync_request
 
         url = f"{self.base_url}/embeddings/multimodal"
         headers = {"Content-Type": "application/json", "Authorization": f"Bearer {self.ark_api_key}"}

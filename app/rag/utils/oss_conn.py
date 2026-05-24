@@ -19,8 +19,8 @@ from botocore.exceptions import ClientError
 from botocore.config import Config
 import time
 from io import BytesIO
-from common.decorator import singleton
-from common import settings
+from app.common.decorator import singleton
+from app.common import settings
 
 
 @singleton

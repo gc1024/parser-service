@@ -19,21 +19,21 @@ from github.PaginatedList import PaginatedList
 from github.PullRequest import PullRequest
 from pydantic import BaseModel
 from typing_extensions import override
-from common.data_source.utils import sanitize_filename
-from common.data_source.config import DocumentSource, GITHUB_CONNECTOR_BASE_URL
-from common.data_source.exceptions import (
+from app.common.data_source.utils import sanitize_filename
+from app.common.data_source.config import DocumentSource, GITHUB_CONNECTOR_BASE_URL
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     CredentialExpiredError,
     InsufficientPermissionsError,
     UnexpectedValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     CheckpointedConnectorWithPermSyncGH,
     CheckpointOutput,
     CheckpointOutputWrapper,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     ConnectorCheckpoint,
     ConnectorFailure,
     Document,
@@ -43,7 +43,7 @@ from common.data_source.models import (
     SecondsSinceUnixEpoch,
     SlimDocument,
 )
-from common.data_source.connector_runner import ConnectorRunner
+from app.common.data_source.connector_runner import ConnectorRunner
 from .models import SerializedRepository
 from .rate_limit_utils import sleep_after_rate_limit_exception
 from .utils import deserialize_repository

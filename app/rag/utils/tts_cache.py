@@ -19,7 +19,7 @@ import logging
 import os
 from typing import Any, Optional
 
-from rag.utils.redis_conn import REDIS_CONN
+from app.rag.utils.redis_conn import REDIS_CONN
 
 _DEFAULT_TTL_SECONDS = 7 * 24 * 60 * 60
 _KEY_PREFIX = "tts:cache:"

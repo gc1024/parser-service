@@ -36,15 +36,15 @@ from typing import Any
 
 from flask import json
 
-from api.utils.common import hash128
-from api.db.services.connector_service import ConnectorService, SyncLogsService
-from api.db.services.document_service import DocumentService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from common import settings
-from common.constants import ConnectorTaskType, FileSource, TaskStatus
-from common.config_utils import show_configs
-from common.data_source.config import INDEX_BATCH_SIZE
-from common.data_source import (
+from app.api.utils.common import hash128
+from app.api.db.services.connector_service import ConnectorService, SyncLogsService
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.common import settings
+from app.common.constants import ConnectorTaskType, FileSource, TaskStatus
+from app.common.config_utils import show_configs
+from app.common.data_source.config import INDEX_BATCH_SIZE
+from app.common.data_source import (
     BlobStorageConnector,
     RSSConnector,
     NotionConnector,
@@ -62,19 +62,19 @@ from common.data_source import (
     DingTalkAITableConnector,
     RestAPIConnector,
 )
-from common.data_source.models import ConnectorFailure, SeafileSyncScope
-from common.data_source.webdav_connector import WebDAVConnector
-from common.data_source.confluence_connector import ConfluenceConnector
-from common.data_source.gmail_connector import GmailConnector
-from common.data_source.box_connector import BoxConnector
-from common.data_source.github.connector import GithubConnector
-from common.data_source.gitlab_connector import GitlabConnector
-from common.data_source.bitbucket.connector import BitbucketConnector
-from common.data_source.interfaces import CheckpointOutputWrapper
-from common.data_source.exceptions import ConnectorValidationError
-from common.log_utils import init_root_logger
-from common.signal_utils import start_tracemalloc_and_snapshot, stop_tracemalloc
-from common.versions import get_ragflow_version
+from app.common.data_source.models import ConnectorFailure, SeafileSyncScope
+from app.common.data_source.webdav_connector import WebDAVConnector
+from app.common.data_source.confluence_connector import ConfluenceConnector
+from app.common.data_source.gmail_connector import GmailConnector
+from app.common.data_source.box_connector import BoxConnector
+from app.common.data_source.github.connector import GithubConnector
+from app.common.data_source.gitlab_connector import GitlabConnector
+from app.common.data_source.bitbucket.connector import BitbucketConnector
+from app.common.data_source.interfaces import CheckpointOutputWrapper
+from app.common.data_source.exceptions import ConnectorValidationError
+from app.common.log_utils import init_root_logger
+from app.common.signal_utils import start_tracemalloc_and_snapshot, stop_tracemalloc
+from app.common.versions import get_ragflow_version
 from box_sdk_gen import BoxOAuth, OAuthConfig, AccessToken
 MAX_CONCURRENT_TASKS = int(os.environ.get("MAX_CONCURRENT_TASKS", "5"))
 task_limiter = asyncio.Semaphore(MAX_CONCURRENT_TASKS)
@@ -507,8 +507,8 @@ class Confluence(SyncBase):
     SOURCE_NAME: str = FileSource.CONFLUENCE
 
     async def _generate(self, task: dict):
-        from common.data_source.config import DocumentSource
-        from common.data_source.interfaces import StaticCredentialsProvider
+        from app.common.data_source.config import DocumentSource
+        from app.common.data_source.interfaces import StaticCredentialsProvider
 
         index_mode = (self.conf.get("index_mode") or "everything").lower()
         if index_mode not in {"everything", "space", "page"}:
@@ -1148,7 +1148,7 @@ class Github(SyncBase):
         """
         Sync files from Github repositories.
         """
-        from common.data_source.connector_runner import ConnectorRunner
+        from app.common.data_source.connector_runner import ConnectorRunner
 
         self.connector = GithubConnector(
             repo_owner=self.conf.get("repository_owner"),
@@ -1211,8 +1211,8 @@ class IMAP(SyncBase):
     SOURCE_NAME: str = FileSource.IMAP
 
     async def _generate(self, task):
-        from common.data_source.config import DocumentSource
-        from common.data_source.interfaces import StaticCredentialsProvider
+        from app.common.data_source.config import DocumentSource
+        from app.common.data_source.interfaces import StaticCredentialsProvider
         self.connector = ImapConnector(
             host=self.conf.get("imap_host"),
             port=self.conf.get("imap_port"),

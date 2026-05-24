@@ -24,13 +24,13 @@ import copy
 from opensearchpy import OpenSearch, NotFoundError
 from opensearchpy import UpdateByQuery, Q, Search, Index
 from opensearchpy import ConnectionTimeout
-from common.decorator import singleton
-from common.file_utils import get_project_base_directory
-from common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr, MatchTextExpr, MatchDenseExpr, \
+from app.common.decorator import singleton
+from app.common.file_utils import get_project_base_directory
+from app.common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr, MatchTextExpr, MatchDenseExpr, \
     FusionExpr
-from rag.nlp import is_english, rag_tokenizer
-from common.constants import PAGERANK_FLD, TAG_FLD
-from common import settings
+from app.rag.nlp import is_english, rag_tokenizer
+from app.common.constants import PAGERANK_FLD, TAG_FLD
+from app.common import settings
 
 ATTEMPT_TIME = 2
 

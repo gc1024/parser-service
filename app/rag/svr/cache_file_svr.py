@@ -17,10 +17,10 @@ import logging
 import time
 import traceback
 
-from api.db.db_models import close_connection
-from api.db.services.task_service import TaskService
-from rag.utils.redis_conn import REDIS_CONN
-from common import settings
+from app.api.db.db_models import close_connection
+from app.api.db.services.task_service import TaskService
+from app.rag.utils.redis_conn import REDIS_CONN
+from app.common import settings
 
 
 def collect():

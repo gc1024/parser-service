@@ -20,8 +20,8 @@ import os
 import time
 from concurrent.futures import ThreadPoolExecutor
 
-from common import settings
-from rag.flow.pipeline import Pipeline
+from app.common import settings
+from app.rag.flow.pipeline import Pipeline
 
 
 def print_logs(pipeline: Pipeline):

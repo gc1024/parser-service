@@ -10,25 +10,25 @@ from typing import Any, Optional
 from markdownify import markdownify as md
 from moodle import Moodle as MoodleClient, MoodleException
 
-from common.data_source.config import INDEX_BATCH_SIZE
-from common.data_source.exceptions import (
+from app.common.data_source.config import INDEX_BATCH_SIZE
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     CredentialExpiredError,
     InsufficientPermissionsError,
     ConnectorValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     LoadConnector,
     PollConnector,
     SecondsSinceUnixEpoch,
     SlimConnectorWithPermSync,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     Document,
     GenerateSlimDocumentOutput,
     SlimDocument,
 )
-from common.data_source.utils import batch_generator, rl_requests
+from app.common.data_source.utils import batch_generator, rl_requests
 
 logger = logging.getLogger(__name__)
 

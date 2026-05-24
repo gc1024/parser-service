@@ -10,12 +10,12 @@ from pydantic import BaseModel
 from requests.exceptions import HTTPError
 from typing_extensions import override
 
-from common.data_source.config import ZENDESK_CONNECTOR_SKIP_ARTICLE_LABELS, DocumentSource
-from common.data_source.exceptions import ConnectorValidationError, CredentialExpiredError, InsufficientPermissionsError
-from common.data_source.html_utils import parse_html_page_basic
-from common.data_source.interfaces import CheckpointOutput, CheckpointOutputWrapper, CheckpointedConnector, IndexingHeartbeatInterface, SlimConnectorWithPermSync
-from common.data_source.models import BasicExpertInfo, ConnectorCheckpoint, ConnectorFailure, Document, DocumentFailure, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
-from common.data_source.utils import retry_builder, time_str_to_utc,rate_limit_builder
+from app.common.data_source.config import ZENDESK_CONNECTOR_SKIP_ARTICLE_LABELS, DocumentSource
+from app.common.data_source.exceptions import ConnectorValidationError, CredentialExpiredError, InsufficientPermissionsError
+from app.common.data_source.html_utils import parse_html_page_basic
+from app.common.data_source.interfaces import CheckpointOutput, CheckpointOutputWrapper, CheckpointedConnector, IndexingHeartbeatInterface, SlimConnectorWithPermSync
+from app.common.data_source.models import BasicExpertInfo, ConnectorCheckpoint, ConnectorFailure, Document, DocumentFailure, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
+from app.common.data_source.utils import retry_builder, time_str_to_utc,rate_limit_builder
 
 MAX_PAGE_SIZE = 30  # Zendesk API maximum
 MAX_AUTHOR_MAP_SIZE = 50_000  # Reset author map cache if it gets too large

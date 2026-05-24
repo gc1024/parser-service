@@ -10,25 +10,25 @@ from typing import TYPE_CHECKING
 
 from typing_extensions import override
 
-from common.data_source.config import INDEX_BATCH_SIZE
-from common.data_source.config import DocumentSource
-from common.data_source.config import REQUEST_TIMEOUT_SECONDS
-from common.data_source.exceptions import ( 
+from app.common.data_source.config import INDEX_BATCH_SIZE
+from app.common.data_source.config import DocumentSource
+from app.common.data_source.config import REQUEST_TIMEOUT_SECONDS
+from app.common.data_source.exceptions import ( 
     ConnectorMissingCredentialError,
     CredentialExpiredError,
     InsufficientPermissionsError,
     UnexpectedValidationError,
 )
-from common.data_source.interfaces import CheckpointedConnector
-from common.data_source.interfaces import CheckpointOutput
-from common.data_source.interfaces import IndexingHeartbeatInterface
-from common.data_source.interfaces import SecondsSinceUnixEpoch
-from common.data_source.interfaces import SlimConnectorWithPermSync
-from common.data_source.models import ConnectorCheckpoint
-from common.data_source.models import ConnectorFailure
-from common.data_source.models import DocumentFailure
-from common.data_source.models import SlimDocument
-from common.data_source.bitbucket.utils import (
+from app.common.data_source.interfaces import CheckpointedConnector
+from app.common.data_source.interfaces import CheckpointOutput
+from app.common.data_source.interfaces import IndexingHeartbeatInterface
+from app.common.data_source.interfaces import SecondsSinceUnixEpoch
+from app.common.data_source.interfaces import SlimConnectorWithPermSync
+from app.common.data_source.models import ConnectorCheckpoint
+from app.common.data_source.models import ConnectorFailure
+from app.common.data_source.models import DocumentFailure
+from app.common.data_source.models import SlimDocument
+from app.common.data_source.bitbucket.utils import (
     build_auth_client,
     list_repositories,
     map_pr_to_document,

@@ -28,20 +28,20 @@ logger = logging.getLogger(__name__)
 import xxhash
 from peewee import fn
 
-from api.db import KNOWLEDGEBASE_FOLDER_NAME, SKILLS_FOLDER_NAME, FileType
-from api.db.db_models import DB, Document, File, File2Document, Knowledgebase, Task
-from api.db.services import duplicate_name
-from api.db.services.common_service import CommonService
-from api.db.services.document_service import DocumentService
-from api.db.services.file2document_service import File2DocumentService
-from common.misc_utils import get_uuid
-from common.ssrf_guard import assert_url_is_safe
-from common.constants import TaskStatus, FileSource, ParserType, MAXIMUM_PAGE_NUMBER
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.task_service import TaskService
-from api.utils.file_utils import filename_type, read_potential_broken_pdf, thumbnail_img, sanitize_path
-from rag.llm.cv_model import GptV4
-from common import settings
+from app.api.db import KNOWLEDGEBASE_FOLDER_NAME, SKILLS_FOLDER_NAME, FileType
+from app.api.db.db_models import DB, Document, File, File2Document, Knowledgebase, Task
+from app.api.db.services import duplicate_name
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.common.misc_utils import get_uuid
+from app.common.ssrf_guard import assert_url_is_safe
+from app.common.constants import TaskStatus, FileSource, ParserType, MAXIMUM_PAGE_NUMBER
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.task_service import TaskService
+from app.api.utils.file_utils import filename_type, read_potential_broken_pdf, thumbnail_img, sanitize_path
+from app.rag.llm.cv_model import GptV4
+from app.common import settings
 
 
 class FileService(CommonService):
@@ -574,8 +574,8 @@ class FileService(CommonService):
 
     @staticmethod
     def parse(filename, blob, img_base64=True, tenant_id=None, layout_recognize=None):
-        from rag.app import audio, email, naive, picture, presentation
-        from api.apps import current_user
+        from app.rag.app import audio, email, naive, picture, presentation
+        from app.api.apps import current_user
 
         def dummy(prog=None, msg=""):
             pass

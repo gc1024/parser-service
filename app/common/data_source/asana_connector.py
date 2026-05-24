@@ -5,10 +5,10 @@ import logging
 from typing import Any, Dict
 import asana
 import requests
-from common.data_source.config import CONTINUE_ON_CONNECTOR_FAILURE, INDEX_BATCH_SIZE, DocumentSource
-from common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
-from common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
-from common.data_source.utils import extract_size_bytes, get_file_ext
+from app.common.data_source.config import CONTINUE_ON_CONNECTOR_FAILURE, INDEX_BATCH_SIZE, DocumentSource
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
+from app.common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
+from app.common.data_source.utils import extract_size_bytes, get_file_ext
 
 
 

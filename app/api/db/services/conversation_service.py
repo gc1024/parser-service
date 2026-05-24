@@ -16,15 +16,15 @@
 import time
 import logging
 from uuid import uuid4
-from common.constants import StatusEnum
-from api.db.db_models import Conversation, DB
-from api.db.services.api_service import API4ConversationService
-from api.db.services.common_service import CommonService
-from api.db.services.dialog_service import DialogService, async_chat
-from common.misc_utils import get_uuid
+from app.common.constants import StatusEnum
+from app.api.db.db_models import Conversation, DB
+from app.api.db.services.api_service import API4ConversationService
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.dialog_service import DialogService, async_chat
+from app.common.misc_utils import get_uuid
 import json
 
-from rag.prompts.generator import chunks_format
+from app.rag.prompts.generator import chunks_format
 
 
 logger = logging.getLogger(__name__)

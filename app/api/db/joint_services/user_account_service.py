@@ -16,30 +16,30 @@
 import logging
 import uuid
 
-from api.utils.api_utils import group_by
-from api.db import FileType, UserTenantRole
-from api.db.services.api_service import APITokenService, API4ConversationService
-from api.db.services.canvas_service import UserCanvasService
-from api.db.services.conversation_service import ConversationService
-from api.db.services.dialog_service import DialogService
-from api.db.services.document_service import DocumentService
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.langfuse_service import TenantLangfuseService
-from api.db.services.llm_service import get_init_tenant_llm
-from api.db.services.file_service import FileService
-from api.db.services.mcp_server_service import MCPServerService
-from api.db.services.search_service import SearchService
-from api.db.services.task_service import TaskService
-from api.db.services.tenant_llm_service import TenantLLMService
-from api.db.services.user_canvas_version import UserCanvasVersionService
-from api.db.services.user_service import TenantService, UserService, UserTenantService
-from api.db.services.memory_service import MemoryService
+from app.api.utils.api_utils import group_by
+from app.api.db import FileType, UserTenantRole
+from app.api.db.services.api_service import APITokenService, API4ConversationService
+from app.api.db.services.canvas_service import UserCanvasService
+from app.api.db.services.conversation_service import ConversationService
+from app.api.db.services.dialog_service import DialogService
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.langfuse_service import TenantLangfuseService
+from app.api.db.services.llm_service import get_init_tenant_llm
+from app.api.db.services.file_service import FileService
+from app.api.db.services.mcp_server_service import MCPServerService
+from app.api.db.services.search_service import SearchService
+from app.api.db.services.task_service import TaskService
+from app.api.db.services.tenant_llm_service import TenantLLMService
+from app.api.db.services.user_canvas_version import UserCanvasVersionService
+from app.api.db.services.user_service import TenantService, UserService, UserTenantService
+from app.api.db.services.memory_service import MemoryService
 from memory.services.messages import MessageService
-from rag.nlp import search
-from common.constants import ActiveEnum
-from common import settings
+from app.rag.nlp import search
+from app.common.constants import ActiveEnum
+from app.common import settings
 
 def create_new_user(user_info: dict) -> dict:
     """

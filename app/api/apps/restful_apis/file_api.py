@@ -17,18 +17,18 @@ import logging
 import re
 
 from quart import request, make_response
-from api.apps import login_required
-from api.db import FileType
-from api.db.services.file2document_service import File2DocumentService
-from api.utils.api_utils import (
+from app.api.apps import login_required
+from app.api.db import FileType
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.utils.api_utils import (
     add_tenant_id_to_kwargs,
     get_error_argument_result,
     get_error_data_result,
     get_json_result,
     get_result,
 )
-from common.constants import RetCode
-from api.utils.validation_utils import (
+from app.common.constants import RetCode
+from app.api.utils.validation_utils import (
     CreateFolderReq,
     DeleteFileReq,
     ListFileReq,
@@ -36,10 +36,10 @@ from api.utils.validation_utils import (
     validate_and_parse_json_request,
     validate_and_parse_request_args,
 )
-from api.utils.web_utils import CONTENT_TYPE_MAP, apply_safe_file_response_headers
-from common import settings
-from common.misc_utils import thread_pool_exec
-from api.apps.services import file_api_service
+from app.api.utils.web_utils import CONTENT_TYPE_MAP, apply_safe_file_response_headers
+from app.common import settings
+from app.common.misc_utils import thread_pool_exec
+from app.api.apps.services import file_api_service
 
 
 @manager.route("/files", methods=["POST"])  # noqa: F821

@@ -22,8 +22,8 @@ from minio.commonconfig import CopySource
 from minio.error import S3Error, ServerError, InvalidResponseError
 from io import BytesIO
 import urllib3
-from common.decorator import singleton
-from common import settings
+from app.common.decorator import singleton
+from app.common import settings
 
 
 def _build_minio_http_client():

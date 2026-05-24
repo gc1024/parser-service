@@ -22,21 +22,21 @@ import xxhash
 from pydantic import BaseModel, Field, validator
 from quart import request
 
-from api.apps import login_required
-from api.db.joint_services.tenant_model_service import (
+from app.api.apps import login_required
+from app.api.db.joint_services.tenant_model_service import (
     get_model_config_by_id,
     get_model_config_by_type_and_name,
     get_tenant_default_model_by_type,
 )
-from api.db.db_models import Document, Task
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.services.document_service import DocumentService
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.llm_service import LLMBundle
-from api.db.services.task_service import TaskService, cancel_all_task_of, queue_tasks
-from api.db.services.tenant_llm_service import TenantLLMService
-from api.utils.api_utils import (
+from app.api.db.db_models import Document, Task
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.services.task_service import TaskService, cancel_all_task_of, queue_tasks
+from app.api.db.services.tenant_llm_service import TenantLLMService
+from app.api.utils.api_utils import (
     add_tenant_id_to_kwargs,
     check_duplicate_ids,
     construct_json_result,
@@ -46,20 +46,20 @@ from api.utils.api_utils import (
     server_error_response,
     token_required,
 )
-from api.utils.image_utils import store_chunk_image
-from api.utils.reference_metadata_utils import (
+from app.api.utils.image_utils import store_chunk_image
+from app.api.utils.reference_metadata_utils import (
     enrich_chunks_with_document_metadata,
     resolve_reference_metadata_preferences,
 )
-from common import settings
-from common.constants import LLMType, ParserType, RetCode, TaskStatus
-from common.metadata_utils import convert_conditions, meta_filter
-from common.misc_utils import thread_pool_exec
-from common.string_utils import is_content_empty, remove_redundant_spaces
-from common.tag_feature_utils import validate_tag_features
-from rag.app.tag import label_question
-from rag.nlp import search
-from rag.prompts.generator import cross_languages, keyword_extraction
+from app.common import settings
+from app.common.constants import LLMType, ParserType, RetCode, TaskStatus
+from app.common.metadata_utils import convert_conditions, meta_filter
+from app.common.misc_utils import thread_pool_exec
+from app.common.string_utils import is_content_empty, remove_redundant_spaces
+from app.common.tag_feature_utils import validate_tag_features
+from app.rag.app.tag import label_question
+from app.rag.nlp import search
+from app.rag.prompts.generator import cross_languages, keyword_extraction
 
 
 DOC_STOP_PARSING_INVALID_STATE_MESSAGE = "Can't stop parsing document that has not started or already completed"
@@ -352,7 +352,7 @@ async def retrieval_test(tenant_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def list_chunks(tenant_id, dataset_id, document_id):
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")
@@ -438,7 +438,7 @@ async def list_chunks(tenant_id, dataset_id, document_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def get_chunk(tenant_id, dataset_id, document_id, chunk_id):
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")
@@ -463,7 +463,7 @@ async def get_chunk(tenant_id, dataset_id, document_id, chunk_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def add_chunk(tenant_id, dataset_id, document_id):
-    from rag.nlp import rag_tokenizer, search
+    from app.rag.nlp import rag_tokenizer, search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")
@@ -554,7 +554,7 @@ async def add_chunk(tenant_id, dataset_id, document_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def rm_chunk(tenant_id, dataset_id, document_id):
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")
@@ -603,8 +603,8 @@ async def rm_chunk(tenant_id, dataset_id, document_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def update_chunk(tenant_id, dataset_id, document_id, chunk_id):
-    from rag.app.qa import beAdoc, rmPrefix
-    from rag.nlp import rag_tokenizer, search
+    from app.rag.app.qa import beAdoc, rmPrefix
+    from app.rag.nlp import rag_tokenizer, search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")
@@ -692,7 +692,7 @@ async def update_chunk(tenant_id, dataset_id, document_id, chunk_id):
 @login_required
 @add_tenant_id_to_kwargs
 async def switch_chunks(tenant_id, dataset_id, document_id):
-    from rag.nlp import search
+    from app.rag.nlp import search
 
     if not KnowledgebaseService.accessible(kb_id=dataset_id, user_id=tenant_id):
         return get_error_data_result(message=f"You don't own the dataset {dataset_id}.")

@@ -4,14 +4,14 @@ from datetime import datetime, timezone
 from typing import Any, Generator
 
 from box_sdk_gen import BoxClient
-from common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
-from common.data_source.exceptions import (
+from app.common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
 )
-from common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch
-from common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
-from common.data_source.utils import get_file_ext
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch
+from app.common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
+from app.common.data_source.utils import get_file_ext
 
 
 class BoxConnector(LoadConnector, PollConnector):

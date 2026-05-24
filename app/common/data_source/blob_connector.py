@@ -7,26 +7,26 @@ from typing import Any, Optional
 
 import xxhash
 
-from common.data_source.utils import (
+from app.common.data_source.utils import (
     create_s3_client,
     detect_bucket_region,
     download_object,
     extract_size_bytes,
     get_file_ext,
 )
-from common.data_source.config import BlobType, DocumentSource, BLOB_STORAGE_SIZE_THRESHOLD, INDEX_BATCH_SIZE
-from common.data_source.exceptions import (
+from app.common.data_source.config import BlobType, DocumentSource, BLOB_STORAGE_SIZE_THRESHOLD, INDEX_BATCH_SIZE
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     CredentialExpiredError,
     InsufficientPermissionsError
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     FingerprintConnector,
     LoadConnector,
     PollConnector,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     Document,
     KeyRecord,
     SecondsSinceUnixEpoch,

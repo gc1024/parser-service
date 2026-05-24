@@ -20,8 +20,8 @@ import json
 import uuid
 
 import valkey as redis
-from common.decorator import singleton
-from common import settings
+from app.common.decorator import singleton
+from app.common import settings
 from valkey.lock import Lock
 
 REDIS = {}

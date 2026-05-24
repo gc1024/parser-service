@@ -26,33 +26,33 @@ from functools import partial
 from timeit import default_timer as timer
 from langfuse import Langfuse
 from peewee import fn
-from api.db.services.file_service import FileService
-from common.constants import LLMType, ParserType, StatusEnum
-from api.db.db_models import DB, Dialog
-from api.db.services.common_service import CommonService
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.langfuse_service import TenantLangfuseService
-from api.db.services.llm_service import LLMBundle
-from common.metadata_utils import apply_meta_data_filter
-from api.utils.reference_metadata_utils import (
+from app.api.db.services.file_service import FileService
+from app.common.constants import LLMType, ParserType, StatusEnum
+from app.api.db.db_models import DB, Dialog
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.langfuse_service import TenantLangfuseService
+from app.api.db.services.llm_service import LLMBundle
+from app.common.metadata_utils import apply_meta_data_filter
+from app.api.utils.reference_metadata_utils import (
     enrich_chunks_with_document_metadata,
     resolve_reference_metadata_preferences,
 )
-from api.db.services.tenant_llm_service import TenantLLMService
-from api.db.joint_services.tenant_model_service import get_model_config_by_id, get_model_config_by_type_and_name, get_tenant_default_model_by_type
-from common.time_utils import current_timestamp, datetime_format
-from common.text_utils import normalize_arabic_digits
-from rag.graphrag.general.mind_map_extractor import MindMapExtractor
-from rag.advanced_rag import DeepResearcher
-from rag.app.tag import label_question
-from rag.nlp.search import index_name
-from rag.prompts.generator import chunks_format, citation_prompt, cross_languages, full_question, kb_prompt, keyword_extraction, message_fit_in, PROMPT_JINJA_ENV, ASK_SUMMARY
-from common.token_utils import num_tokens_from_string
-from rag.utils.tavily_conn import Tavily
-from rag.utils.tts_cache import synthesize_with_cache
-from common.string_utils import remove_redundant_spaces
-from common import settings
+from app.api.db.services.tenant_llm_service import TenantLLMService
+from app.api.db.joint_services.tenant_model_service import get_model_config_by_id, get_model_config_by_type_and_name, get_tenant_default_model_by_type
+from app.common.time_utils import current_timestamp, datetime_format
+from app.common.text_utils import normalize_arabic_digits
+from app.rag.graphrag.general.mind_map_extractor import MindMapExtractor
+from app.rag.advanced_rag import DeepResearcher
+from app.rag.app.tag import label_question
+from app.rag.nlp.search import index_name
+from app.rag.prompts.generator import chunks_format, citation_prompt, cross_languages, full_question, kb_prompt, keyword_extraction, message_fit_in, PROMPT_JINJA_ENV, ASK_SUMMARY
+from app.common.token_utils import num_tokens_from_string
+from app.rag.utils.tavily_conn import Tavily
+from app.rag.utils.tts_cache import synthesize_with_cache
+from app.common.string_utils import remove_redundant_spaces
+from app.common import settings
 
 def _chunk_kb_id_for_doc(row_dict, kb_ids, doc_id):
     if len(kb_ids or []) == 1:
@@ -204,7 +204,7 @@ class DialogService(CommonService):
         id=None,
         name=None,
     ):
-        from api.db.db_models import User
+        from app.api.db.db_models import User
 
         fields = [
             cls.model.id,

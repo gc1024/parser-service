@@ -13,10 +13,10 @@ from discord.channel import TextChannel, Thread
 from discord.flags import Intents
 from discord.message import Message as DiscordMessage
 
-from common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
-from common.data_source.exceptions import ConnectorMissingCredentialError
-from common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
-from common.data_source.models import (
+from app.common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
+from app.common.data_source.exceptions import ConnectorMissingCredentialError
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
+from app.common.data_source.models import (
     Document,
     GenerateDocumentsOutput,
     GenerateSlimDocumentOutput,

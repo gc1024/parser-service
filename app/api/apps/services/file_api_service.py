@@ -17,16 +17,16 @@ import logging
 import os
 import pathlib
 
-from api.common.check_team_permission import check_file_team_permission
-from api.db import FileType
-from api.db.services import duplicate_name
-from api.db.services.document_service import DocumentService
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from api.utils.file_utils import filename_type
-from common import settings
-from common.constants import FileSource
-from common.misc_utils import get_uuid, thread_pool_exec
+from app.api.common.check_team_permission import check_file_team_permission
+from app.api.db import FileType
+from app.api.db.services import duplicate_name
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.api.utils.file_utils import filename_type
+from app.common import settings
+from app.common.constants import FileSource
+from app.common.misc_utils import get_uuid, thread_pool_exec
 
 
 async def upload_file(tenant_id: str, pf_id: str, file_objs: list):
@@ -182,7 +182,7 @@ def get_parent_folder(file_id: str, user_id: str = None):
     :param user_id: user ID for permission validation
     :return: (success, result) or (success, error_message)
     """
-    from api.common.check_team_permission import check_file_team_permission
+    from app.api.common.check_team_permission import check_file_team_permission
 
     e, file = FileService.get_by_id(file_id)
     if not e:
@@ -204,7 +204,7 @@ def get_all_parent_folders(file_id: str, user_id: str = None):
     :param user_id: user ID for permission validation
     :return: (success, result) or (success, error_message)
     """
-    from api.common.check_team_permission import check_file_team_permission
+    from app.api.common.check_team_permission import check_file_team_permission
 
     e, file = FileService.get_by_id(file_id)
     if not e:

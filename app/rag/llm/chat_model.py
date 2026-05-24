@@ -1,4 +1,5 @@
 #
+import sys
 #  Copyright 2025 The InfiniFlow Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -28,13 +29,17 @@ import json_repair
 import litellm
 import openai
 from openai import AsyncOpenAI, OpenAI
-from enum import StrEnum
+import sys
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+else:
+    from strenum import StrEnum
 
-from common.misc_utils import thread_pool_exec
-from common.token_utils import num_tokens_from_string, total_token_count_from_response
-from rag.llm import FACTORY_DEFAULT_BASE_URL, LITELLM_PROVIDER_PREFIX, SupportedLiteLLMProvider
-from rag.llm.tool_decorator import FunctionToolSession, is_tool
-from rag.nlp import is_chinese, is_english
+from app.common.misc_utils import thread_pool_exec
+from app.common.token_utils import num_tokens_from_string, total_token_count_from_response
+from app.rag.llm import FACTORY_DEFAULT_BASE_URL, LITELLM_PROVIDER_PREFIX, SupportedLiteLLMProvider
+from app.rag.llm.tool_decorator import FunctionToolSession, is_tool
+from app.rag.nlp import is_chinese, is_english
 
 
 class LLMErrorCode(StrEnum):
@@ -756,14 +761,14 @@ class LocalLLM(Base):
         self.client = Client(port=12345, protocol="grpc", asyncio=True)
 
     def _prepare_prompt(self, system, history, gen_conf):
-        from rag.svr.jina_server import Prompt
+        from app.rag.svr.jina_server import Prompt
 
         if system and history and history[0].get("role") != "system":
             history.insert(0, {"role": "system", "content": system})
         return Prompt(message=history, gen_conf=gen_conf)
 
     def _stream_response(self, endpoint, prompt):
-        from rag.svr.jina_server import Generation
+        from app.rag.svr.jina_server import Generation
 
         answer = ""
         try:

@@ -15,10 +15,10 @@
 #
 
 import logging
-from common.crypto_utils import CryptoUtil
+from app.common.crypto_utils import CryptoUtil
 
 
-# from common.decorator import singleton
+# from app.common.decorator import singleton
 
 class EncryptedStorageWrapper:
     """Encrypted storage wrapper that wraps existing storage implementations to provide transparent encryption"""

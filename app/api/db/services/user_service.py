@@ -20,14 +20,14 @@ import logging
 import peewee
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from api.db import UserTenantRole
-from api.db.db_models import DB, UserTenant
-from api.db.db_models import User, Tenant
-from api.db.services.common_service import CommonService
-from common.misc_utils import get_uuid
-from common.time_utils import current_timestamp, datetime_format
-from common.constants import StatusEnum
-from common import settings
+from app.api.db import UserTenantRole
+from app.api.db.db_models import DB, UserTenant
+from app.api.db.db_models import User, Tenant
+from app.api.db.services.common_service import CommonService
+from app.common.misc_utils import get_uuid
+from app.common.time_utils import current_timestamp, datetime_format
+from app.common.constants import StatusEnum
+from app.common import settings
 
 
 class UserService(CommonService):

@@ -47,11 +47,11 @@ import logging
 
 from quart import Blueprint, jsonify, request
 
-from api.apps import login_required
-from api.apps.restful_apis import chunk_api, dataset_api, document_api, file2document_api, file_api, openai_api
-from api.apps.restful_apis.system_api import run_health_checks
-from api.apps.services import dataset_api_service, file_api_service
-from api.utils.api_utils import add_tenant_id_to_kwargs, get_data_error_result, get_json_result, get_request_json
+from app.api.apps import login_required
+from app.api.apps.restful_apis import chunk_api, dataset_api, document_api, file2document_api, file_api, openai_api
+from app.api.apps.restful_apis.system_api import run_health_checks
+from app.api.apps.services import dataset_api_service, file_api_service
+from app.api.utils.api_utils import add_tenant_id_to_kwargs, get_data_error_result, get_json_result, get_request_json
 
 manager = Blueprint("backward_compat", __name__)
 legacy_v1_manager = Blueprint("backward_compat_legacy_v1", __name__)
@@ -551,7 +551,7 @@ async def deprecated_file_upload_info():
     Old path: POST /api/v1/file/upload_info
     New path: POST /api/v1/documents/upload
     """
-    from api.apps import current_user
+    from app.api.apps import current_user
 
     logging.warning(
         "API endpoint /api/v1/file/upload_info is deprecated. "

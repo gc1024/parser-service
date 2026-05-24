@@ -18,7 +18,7 @@ import logging
 import random
 from collections import Counter, defaultdict
 
-from common.token_utils import num_tokens_from_string
+from app.common.token_utils import num_tokens_from_string
 import re
 import copy
 import roman_numbers as r
@@ -705,7 +705,7 @@ def attach_media_context(chunks, table_context_size=0, image_context_size=0):
 
 
 def append_context2table_image4pdf(sections: list, tabls: list, table_context_size=0, return_context=False):
-    from deepdoc.parser import PdfParser
+    from app.deepdoc.parser import PdfParser
     if table_context_size <=0:
         return [] if return_context else tabls
 
@@ -1068,7 +1068,7 @@ def hierarchical_merge(bull, sections, depth):
 
 
 def naive_merge(sections: str | list, chunk_token_num=128, delimiter="\n。；！？", overlapped_percent=0):
-    from deepdoc.parser.pdf_parser import RAGFlowPdfParser
+    from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
     if not sections:
         return []
     if isinstance(sections, str):
@@ -1127,7 +1127,7 @@ def naive_merge(sections: str | list, chunk_token_num=128, delimiter="\n。；�
 
 
 def naive_merge_with_images(texts, images, chunk_token_num=128, delimiter="\n。；！？", overlapped_percent=0):
-    from deepdoc.parser.pdf_parser import RAGFlowPdfParser
+    from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
     if not texts or len(texts) != len(images):
         return [], []
     cks = [""]
@@ -1212,7 +1212,7 @@ def docx_question_level(p, bull=-1):
 
 
 def concat_img(img1, img2):
-    from rag.utils.lazy_image import ensure_pil_image, LazyImage
+    from app.rag.utils.lazy_image import ensure_pil_image, LazyImage
 
     if (img1 is None or isinstance(img1, LazyImage)) and \
        (img2 is None or isinstance(img2, LazyImage)):

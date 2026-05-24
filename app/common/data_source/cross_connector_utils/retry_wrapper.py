@@ -7,7 +7,7 @@ from typing import TypeVar
 import requests
 from retry import retry
 
-from common.data_source.config import REQUEST_TIMEOUT_SECONDS
+from app.common.data_source.config import REQUEST_TIMEOUT_SECONDS
 
 
 F = TypeVar("F", bound=Callable[..., Any])

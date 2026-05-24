@@ -23,8 +23,8 @@ from PIL import Image
 
 
 
-from common.misc_utils import thread_pool_exec
-from rag.utils.lazy_image import open_image_for_processing
+from app.common.misc_utils import thread_pool_exec
+from app.rag.utils.lazy_image import open_image_for_processing
 
 test_image_base64 = "iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAIAAAD/gAIDAAAA6ElEQVR4nO3QwQ3AIBDAsIP9d25XIC+EZE8QZc18w5l9O+AlZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBWYFZgVmBT+IYAHHLHkdEgAAAABJRU5ErkJggg=="
 test_image = base64.b64decode(test_image_base64)
@@ -33,7 +33,7 @@ test_image = base64.b64decode(test_image_base64)
 async def image2id(d: dict, storage_put_func: partial, objname: str, bucket: str = "imagetemps"):
     import logging
     from io import BytesIO
-    from rag.svr.task_executor import minio_limiter
+    from app.rag.svr.task_executor import minio_limiter
 
     if "image" not in d:
         return

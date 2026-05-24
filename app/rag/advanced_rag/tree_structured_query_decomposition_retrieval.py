@@ -16,10 +16,10 @@
 import asyncio
 import logging
 from functools import partial
-from api.db.services.llm_service import LLMBundle
-from rag.prompts import kb_prompt
-from rag.prompts.generator import sufficiency_check, multi_queries_gen
-from rag.utils.tavily_conn import Tavily
+from app.api.db.services.llm_service import LLMBundle
+from app.rag.prompts import kb_prompt
+from app.rag.prompts.generator import sufficiency_check, multi_queries_gen
+from app.rag.utils.tavily_conn import Tavily
 from timeit import default_timer as timer
 
 

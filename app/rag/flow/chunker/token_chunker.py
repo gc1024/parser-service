@@ -16,17 +16,17 @@ import random
 import re
 from copy import deepcopy
 
-from common.float_utils import normalize_overlapped_percent
-from common.token_utils import num_tokens_from_string
-from rag.flow.base import ProcessBase, ProcessParamBase
-from rag.flow.chunker.schema import TokenChunkerFromUpstream
-from rag.flow.parser.pdf_chunk_metadata import (
+from app.common.float_utils import normalize_overlapped_percent
+from app.common.token_utils import num_tokens_from_string
+from app.rag.flow.base import ProcessBase, ProcessParamBase
+from app.rag.flow.chunker.schema import TokenChunkerFromUpstream
+from app.rag.flow.parser.pdf_chunk_metadata import (
     PDF_POSITIONS_KEY,
     extract_pdf_positions,
     finalize_pdf_chunk,
     restore_pdf_text_previews,
 )
-from rag.nlp import naive_merge
+from app.rag.nlp import naive_merge
 
 
 class TokenChunkerParam(ProcessParamBase):

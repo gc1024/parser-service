@@ -20,17 +20,17 @@ from abc import ABC, abstractmethod
 from collections import Counter
 from copy import deepcopy
 
-from deepdoc.parser.pdf_parser import RAGFlowPdfParser
-from deepdoc.parser.utils import extract_pdf_outlines
-from rag.flow.base import ProcessBase, ProcessParamBase
-from rag.flow.parser.pdf_chunk_metadata import (
+from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
+from app.deepdoc.parser.utils import extract_pdf_outlines
+from app.rag.flow.base import ProcessBase, ProcessParamBase
+from app.rag.flow.parser.pdf_chunk_metadata import (
     PDF_POSITIONS_KEY,
     extract_pdf_positions,
     finalize_pdf_chunk,
     merge_pdf_positions,
     restore_pdf_text_previews,
 )
-from rag.nlp import not_bullet, not_title
+from app.rag.nlp import not_bullet, not_title
 
 BODY_LEVEL = sys.maxsize - 1
 

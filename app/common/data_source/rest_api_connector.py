@@ -22,19 +22,19 @@ from pydantic import BaseModel, ConfigDict, Field, HttpUrl, ValidationError, fie
 
 logger = logging.getLogger(__name__)
 
-from api.utils.common import hash128
-from common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
-from common.data_source.exceptions import (
+from app.api.utils.common import hash128
+from app.common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     LoadConnector,
     PollConnector,
     SecondsSinceUnixEpoch,
 )
-from common.data_source.models import Document
-from common.data_source.utils import rl_requests, retry_builder
+from app.common.data_source.models import Document
+from app.common.data_source.utils import rl_requests, retry_builder
 
 try:
     from jsonpath import jsonpath as _jsonpath  # type: ignore[import]

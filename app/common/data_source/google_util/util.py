@@ -9,9 +9,9 @@ from typing import Any
 import unicodedata
 from googleapiclient.errors import HttpError  # type: ignore  # type: ignore
 
-from common.data_source.config import DocumentSource
-from common.data_source.google_drive.model import GoogleDriveFileType
-from common.data_source.google_util.oauth_flow import ensure_oauth_token_dict
+from app.common.data_source.config import DocumentSource
+from app.common.data_source.google_drive.model import GoogleDriveFileType
+from app.common.data_source.google_util.oauth_flow import ensure_oauth_token_dict
 
 
 # See https://developers.google.com/drive/api/reference/rest/v3/files/list for more

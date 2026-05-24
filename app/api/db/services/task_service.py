@@ -19,21 +19,21 @@ import random
 import xxhash
 from datetime import datetime
 
-from api.db.db_utils import bulk_insert_into_db
-from deepdoc.parser import PdfParser
+from app.api.db.db_utils import bulk_insert_into_db
+from app.deepdoc.parser import PdfParser
 from peewee import JOIN
-from api.db.db_models import DB, File2Document, File
-from api.db import FileType
-from api.db.db_models import Task, Document, Knowledgebase, Tenant
-from api.db.services.common_service import CommonService
-from api.db.services.document_service import DocumentService
-from common.misc_utils import get_uuid
-from common.time_utils import current_timestamp
-from common.constants import StatusEnum, TaskStatus, MAXIMUM_PAGE_NUMBER, MAXIMUM_TASK_PAGE_NUMBER
-from deepdoc.parser.excel_parser import RAGFlowExcelParser
-from rag.utils.redis_conn import REDIS_CONN
-from common import settings
-from rag.nlp import search
+from app.api.db.db_models import DB, File2Document, File
+from app.api.db import FileType
+from app.api.db.db_models import Task, Document, Knowledgebase, Tenant
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.document_service import DocumentService
+from app.common.misc_utils import get_uuid
+from app.common.time_utils import current_timestamp
+from app.common.constants import StatusEnum, TaskStatus, MAXIMUM_PAGE_NUMBER, MAXIMUM_TASK_PAGE_NUMBER
+from app.deepdoc.parser.excel_parser import RAGFlowExcelParser
+from app.rag.utils.redis_conn import REDIS_CONN
+from app.common import settings
+from app.rag.nlp import search
 
 CANVAS_DEBUG_DOC_ID = "dataflow_x"
 GRAPH_RAPTOR_FAKE_DOC_ID = "graph_raptor_x"

@@ -26,7 +26,7 @@ import requests
 from openai import OpenAI
 from openai.lib.azure import AzureOpenAI
 
-from common.token_utils import num_tokens_from_string
+from app.common.token_utils import num_tokens_from_string
 
 
 class Base(ABC):

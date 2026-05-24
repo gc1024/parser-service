@@ -15,8 +15,14 @@
 #
 
 import os
+import sys
 from enum import Enum, IntEnum
-from enum import StrEnum
+
+# Python 3.10 compatibility
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+else:
+    from strenum import StrEnum
 
 SERVICE_CONF = "service_conf.yaml"
 RAG_FLOW_SERVICE_NAME = "ragflow"

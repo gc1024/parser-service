@@ -18,9 +18,9 @@ import logging
 import os
 import time
 from io import BytesIO
-from common.decorator import singleton
+from app.common.decorator import singleton
 from azure.storage.blob import ContainerClient
-from common import settings
+from app.common import settings
 
 
 @singleton

@@ -30,14 +30,14 @@ import requests
 from openai import OpenAI, AsyncOpenAI
 from openai.lib.azure import AzureOpenAI, AsyncAzureOpenAI
 
-from common.token_utils import num_tokens_from_string, total_token_count_from_response
-from rag.nlp import is_english
-from rag.prompts.generator import vision_llm_describe_prompt
+from app.common.token_utils import num_tokens_from_string, total_token_count_from_response
+from app.rag.nlp import is_english
+from app.rag.prompts.generator import vision_llm_describe_prompt
 
 
 
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 class Base(ABC):
     def __init__(self, **kwargs):
@@ -468,8 +468,8 @@ class Zhipu4V(GptV4):
         return cleaned, total_token_count_from_response(response)
 
     async def async_chat_streamly(self, system, history, gen_conf, images=None, **kwargs):
-        from rag.llm.chat_model import LENGTH_NOTIFICATION_CN, LENGTH_NOTIFICATION_EN
-        from rag.nlp import is_chinese
+        from app.rag.llm.chat_model import LENGTH_NOTIFICATION_CN, LENGTH_NOTIFICATION_EN
+        from app.rag.nlp import is_chinese
 
         if system and history and history[0].get("role") != "system":
             history.insert(0, {"role": "system", "content": system})

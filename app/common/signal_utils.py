@@ -19,7 +19,7 @@ import sys
 from datetime import datetime
 import logging
 import tracemalloc
-from common.log_utils import get_project_base_directory
+from app.common.log_utils import get_project_base_directory
 
 # SIGUSR1 handler: start tracemalloc and take snapshot
 def start_tracemalloc_and_snapshot(signum, frame):

@@ -20,9 +20,9 @@ import logging
 import random
 from timeit import default_timer as timer
 from agent.canvas import Graph
-from api.db.services.document_service import DocumentService
-from api.db.services.task_service import has_canceled, TaskService, CANVAS_DEBUG_DOC_ID
-from rag.utils.redis_conn import REDIS_CONN
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.task_service import has_canceled, TaskService, CANVAS_DEBUG_DOC_ID
+from app.rag.utils.redis_conn import REDIS_CONN
 
 
 class Pipeline(Graph):
@@ -41,7 +41,7 @@ class Pipeline(Graph):
                 self._doc_id = None
 
     def callback(self, component_name: str, progress: float | int | None = None, message: str = "") -> None:
-        from common.exceptions import TaskCanceledException
+        from app.common.exceptions import TaskCanceledException
         log_key = f"{self._flow_id}-{self.task_id}-logs"
         timestamp = timer()
         if has_canceled(self.task_id):

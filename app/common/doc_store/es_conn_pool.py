@@ -17,8 +17,8 @@ import logging
 import time
 from elasticsearch import Elasticsearch
 
-from common import settings
-from common.decorator import singleton
+from app.common import settings
+from app.common.decorator import singleton
 
 ATTEMPT_TIME = 2
 

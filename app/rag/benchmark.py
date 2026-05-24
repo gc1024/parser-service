@@ -21,13 +21,13 @@ import time
 import argparse
 from collections import defaultdict
 
-from common import settings
-from common.constants import LLMType
-from api.db.services.llm_service import LLMBundle
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.joint_services.tenant_model_service import get_model_config_by_id, get_model_config_by_type_and_name
-from common.misc_utils import get_uuid
-from rag.nlp import tokenize, search
+from app.common import settings
+from app.common.constants import LLMType
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.joint_services.tenant_model_service import get_model_config_by_id, get_model_config_by_type_and_name
+from app.common.misc_utils import get_uuid
+from app.rag.nlp import tokenize, search
 from ranx import evaluate
 from ranx import Qrels, Run
 import pandas as pd

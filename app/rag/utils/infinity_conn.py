@@ -19,11 +19,11 @@ import json
 import copy
 from infinity.common import InfinityException, SortType
 from infinity.errors import ErrorCode
-from common.decorator import singleton
+from app.common.decorator import singleton
 import pandas as pd
-from common.constants import PAGERANK_FLD, TAG_FLD
-from common.doc_store.doc_store_base import MatchExpr, MatchTextExpr, MatchDenseExpr, FusionExpr, OrderByExpr
-from common.doc_store.infinity_conn_base import InfinityConnectionBase
+from app.common.constants import PAGERANK_FLD, TAG_FLD
+from app.common.doc_store.doc_store_base import MatchExpr, MatchTextExpr, MatchDenseExpr, FusionExpr, OrderByExpr
+from app.common.doc_store.infinity_conn_base import InfinityConnectionBase
 
 
 @singleton
@@ -368,7 +368,7 @@ class InfinityConnection(InfinityConnectionBase):
                 # Table parser documents have 'chunk_data' field
                 parser_id = None
                 if "chunk_data" in documents[0] and isinstance(documents[0].get("chunk_data"), dict):
-                    from common.constants import ParserType
+                    from app.common.constants import ParserType
                     parser_id = ParserType.TABLE.value
                     self.logger.debug("Detected TABLE parser from document structure")
 

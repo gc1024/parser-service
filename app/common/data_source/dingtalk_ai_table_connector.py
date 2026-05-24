@@ -20,10 +20,10 @@ from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_tea_util import models as util_models
 from alibabacloud_tea_util.client import Client as UtilClient
 
-from common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
-from common.data_source.exceptions import ConnectorMissingCredentialError, ConnectorValidationError
-from common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
-from common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
+from app.common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
+from app.common.data_source.exceptions import ConnectorMissingCredentialError, ConnectorValidationError
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
+from app.common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
 
 logger = logging.getLogger(__name__)
 

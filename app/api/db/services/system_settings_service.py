@@ -14,10 +14,10 @@
 #  limitations under the License.
 #
 from datetime import datetime
-from common.time_utils import current_timestamp, datetime_format
-from api.db.db_models import DB
-from api.db.db_models import SystemSettings
-from api.db.services.common_service import CommonService
+from app.common.time_utils import current_timestamp, datetime_format
+from app.api.db.db_models import DB
+from app.api.db.db_models import SystemSettings
+from app.api.db.services.common_service import CommonService
 
 
 class SystemSettingsService(CommonService):

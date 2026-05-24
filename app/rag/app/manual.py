@@ -18,16 +18,16 @@ import logging
 import copy
 import re
 
-from common.constants import ParserType, MAXIMUM_PAGE_NUMBER
+from app.common.constants import ParserType, MAXIMUM_PAGE_NUMBER
 from io import BytesIO
-from deepdoc.parser.utils import extract_pdf_outlines
-from rag.nlp import rag_tokenizer, tokenize, tokenize_table, bullets_category, title_frequency, tokenize_chunks, docx_question_level, attach_media_context, concat_img
-from common.token_utils import num_tokens_from_string
-from deepdoc.parser import PdfParser, DocxParser
-from deepdoc.parser.figure_parser import vision_figure_parser_pdf_wrapper, vision_figure_parser_docx_wrapper
+from app.deepdoc.parser.utils import extract_pdf_outlines
+from app.rag.nlp import rag_tokenizer, tokenize, tokenize_table, bullets_category, title_frequency, tokenize_chunks, docx_question_level, attach_media_context, concat_img
+from app.common.token_utils import num_tokens_from_string
+from app.deepdoc.parser import PdfParser, DocxParser
+from app.deepdoc.parser.figure_parser import vision_figure_parser_pdf_wrapper, vision_figure_parser_docx_wrapper
 from docx import Document
-from rag.app.naive import by_plaintext, PARSERS
-from common.parser_config_utils import normalize_layout_recognizer
+from app.rag.app.naive import by_plaintext, PARSERS
+from app.common.parser_config_utils import normalize_layout_recognizer
 
 
 class Pdf(PdfParser):

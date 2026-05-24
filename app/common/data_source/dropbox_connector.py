@@ -8,15 +8,15 @@ from dropbox import Dropbox
 from dropbox.exceptions import ApiError, AuthError
 from dropbox.files import FileMetadata, FolderMetadata
 
-from common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
-from common.data_source.exceptions import (
+from app.common.data_source.config import INDEX_BATCH_SIZE, DocumentSource
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     InsufficientPermissionsError,
 )
-from common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
-from common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
-from common.data_source.utils import get_file_ext
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SecondsSinceUnixEpoch, SlimConnectorWithPermSync
+from app.common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SlimDocument
+from app.common.data_source.utils import get_file_ext
 
 logger = logging.getLogger(__name__)
 

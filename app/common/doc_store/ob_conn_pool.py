@@ -22,8 +22,8 @@ from pyobvector.client import ClusterVersionException
 from pyobvector.client.hybrid_search import HybridSearch
 from pyobvector.util import ObVersion
 
-from common import settings
-from common.decorator import singleton
+from app.common import settings
+from app.common.decorator import singleton
 
 ATTEMPT_TIME = 2
 OB_QUERY_TIMEOUT = int(os.environ.get("OB_QUERY_TIMEOUT", "100_000_000"))

@@ -10,22 +10,22 @@ from typing import TypeVar
 import gitlab
 from gitlab.v4.objects import Project
 
-from common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
-from common.data_source.exceptions import ConnectorMissingCredentialError
-from common.data_source.exceptions import ConnectorValidationError
-from common.data_source.exceptions import CredentialExpiredError
-from common.data_source.exceptions import InsufficientPermissionsError
-from common.data_source.exceptions import UnexpectedValidationError
-from common.data_source.interfaces import GenerateDocumentsOutput
-from common.data_source.interfaces import LoadConnector
-from common.data_source.interfaces import PollConnector
-from common.data_source.interfaces import SecondsSinceUnixEpoch
-from common.data_source.interfaces import SlimConnectorWithPermSync
-from common.data_source.models import BasicExpertInfo
-from common.data_source.models import Document
-from common.data_source.models import GenerateSlimDocumentOutput
-from common.data_source.models import SlimDocument
-from common.data_source.utils import get_file_ext
+from app.common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
+from app.common.data_source.exceptions import ConnectorMissingCredentialError
+from app.common.data_source.exceptions import ConnectorValidationError
+from app.common.data_source.exceptions import CredentialExpiredError
+from app.common.data_source.exceptions import InsufficientPermissionsError
+from app.common.data_source.exceptions import UnexpectedValidationError
+from app.common.data_source.interfaces import GenerateDocumentsOutput
+from app.common.data_source.interfaces import LoadConnector
+from app.common.data_source.interfaces import PollConnector
+from app.common.data_source.interfaces import SecondsSinceUnixEpoch
+from app.common.data_source.interfaces import SlimConnectorWithPermSync
+from app.common.data_source.models import BasicExpertInfo
+from app.common.data_source.models import Document
+from app.common.data_source.models import GenerateSlimDocumentOutput
+from app.common.data_source.models import SlimDocument
+from app.common.data_source.utils import get_file_ext
 
 T = TypeVar("T")
 

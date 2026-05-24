@@ -9,16 +9,16 @@ import bs4
 import feedparser
 import requests
 
-from common.data_source.config import INDEX_BATCH_SIZE, REQUEST_TIMEOUT_SECONDS, DocumentSource
-from common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
-from common.data_source.models import (
+from app.common.data_source.config import INDEX_BATCH_SIZE, REQUEST_TIMEOUT_SECONDS, DocumentSource
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
+from app.common.data_source.models import (
     Document,
     GenerateDocumentsOutput,
     GenerateSlimDocumentOutput,
     SecondsSinceUnixEpoch,
     SlimDocument,
 )
-from common.ssrf_guard import assert_url_is_safe, pin_dns as _pin_dns
+from app.common.ssrf_guard import assert_url_is_safe, pin_dns as _pin_dns
 
 _MAX_REDIRECTS = 10
 

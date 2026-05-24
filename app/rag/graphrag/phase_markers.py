@@ -34,7 +34,7 @@ from __future__ import annotations
 
 import logging
 
-from rag.utils.redis_conn import REDIS_CONN
+from app.rag.utils.redis_conn import REDIS_CONN
 
 
 PHASE_RESOLUTION = "resolution_done"

@@ -20,7 +20,7 @@ import os
 import time
 import re
 from nltk.corpus import wordnet
-from common.file_utils import get_project_base_directory
+from app.common.file_utils import get_project_base_directory
 
 
 # Forces NLTK to load the corpus synchronously once, preventing concurrent tasks

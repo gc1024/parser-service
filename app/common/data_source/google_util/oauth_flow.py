@@ -3,8 +3,8 @@ import os
 import threading
 from typing import Any, Callable
 
-from common.data_source.config import DocumentSource
-from common.data_source.google_util.constant import GOOGLE_SCOPES
+from app.common.data_source.config import DocumentSource
+from app.common.data_source.google_util.constant import GOOGLE_SCOPES
 
 
 def _get_requested_scopes(source: DocumentSource) -> list[str]:

@@ -65,7 +65,7 @@ async def download_img(url):
     proxy = os.environ.get("HTTP_CLIENT_PROXY")
     user_agent = os.environ.get("HTTP_CLIENT_USER_AGENT", "ragflow-http-client")
 
-    from common.ssrf_guard import assert_url_is_safe, pin_dns_global
+    from app.common.ssrf_guard import assert_url_is_safe, pin_dns_global
 
     while redirect_hops <= _OAUTH_AVATAR_MAX_REDIRECTS:
         try:

@@ -22,12 +22,12 @@ import numpy as np
 import pdfplumber
 from PIL import Image
 
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from common import settings
-from common.misc_utils import get_uuid
-from deepdoc.parser.pdf_parser import LOCK_KEY_pdfplumber, RAGFlowPdfParser
-from rag.utils.base64_image import image2id
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.common import settings
+from app.common.misc_utils import get_uuid
+from app.deepdoc.parser.pdf_parser import LOCK_KEY_pdfplumber, RAGFlowPdfParser
+from app.rag.utils.base64_image import image2id
 
 PDF_PREVIEW_GAP = 6
 PDF_PREVIEW_CONTEXT = 120

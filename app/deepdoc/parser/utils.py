@@ -18,7 +18,7 @@ from io import BytesIO
 
 from pypdf import PdfReader as pdf2_read
 
-from rag.nlp import find_codec
+from app.rag.nlp import find_codec
 
 
 def get_text(fnm: str, binary=None) -> str:

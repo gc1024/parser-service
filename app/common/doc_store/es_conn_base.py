@@ -25,18 +25,18 @@ from elasticsearch import NotFoundError
 from elasticsearch_dsl import Index
 from elastic_transport import ConnectionTimeout
 from elasticsearch.client import IndicesClient
-from common.file_utils import get_project_base_directory
-from common.misc_utils import convert_bytes
-from common.doc_store.doc_store_base import DocStoreConnection, OrderByExpr, MatchExpr
-from rag.nlp import is_english, rag_tokenizer
-from common import settings
+from app.common.file_utils import get_project_base_directory
+from app.common.misc_utils import convert_bytes
+from app.common.doc_store.doc_store_base import DocStoreConnection, OrderByExpr, MatchExpr
+from app.rag.nlp import is_english, rag_tokenizer
+from app.common import settings
 
 ATTEMPT_TIME = 2
 
 
 class ESConnectionBase(DocStoreConnection):
     def __init__(self, mapping_file_name: str="mapping.json", logger_name: str='ragflow.es_conn'):
-        from common.doc_store.es_conn_pool import ES_CONN
+        from app.common.doc_store.es_conn_pool import ES_CONN
 
         self.logger = logging.getLogger(logger_name)
 
@@ -53,7 +53,7 @@ class ESConnectionBase(DocStoreConnection):
         self.logger.info(f"Elasticsearch {settings.ES['hosts']} is healthy.")
 
     def _connect(self):
-        from common.doc_store.es_conn_pool import ES_CONN
+        from app.common.doc_store.es_conn_pool import ES_CONN
 
         if self.es.ping():
             return True

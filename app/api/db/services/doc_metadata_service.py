@@ -26,11 +26,11 @@ import re
 from copy import deepcopy
 from typing import Dict, List, Optional
 
-from api.db.db_models import DB, Document
-from common import settings
-from common.metadata_utils import dedupe_list
-from api.db.db_models import Knowledgebase
-from common.doc_store.doc_store_base import OrderByExpr
+from app.api.db.db_models import DB, Document
+from app.common import settings
+from app.common.metadata_utils import dedupe_list
+from app.api.db.db_models import Knowledgebase
+from app.common.doc_store.doc_store_base import OrderByExpr
 
 
 class DocMetadataService:
@@ -852,7 +852,7 @@ class DocMetadataService:
             limit: int,
     ) -> Optional[List[str]]:
         """ES push-down path for metadata filtering."""
-        from common.metadata_es_filter import (
+        from app.common.metadata_es_filter import (
             UnsupportedMetaFilter,
             build_meta_filter_query,
             extract_doc_ids,
@@ -910,7 +910,7 @@ class DocMetadataService:
             logic: str,
     ) -> Optional[List[str]]:
         """Infinity push-down path for metadata filtering."""
-        from common.metadata_infinity_filter import (
+        from app.common.metadata_infinity_filter import (
             build_infinity_filter,
             extract_doc_ids,
             is_pushdown_supported,

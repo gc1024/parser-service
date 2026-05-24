@@ -21,13 +21,13 @@ import re
 from typing import Any
 from dataclasses import dataclass
 
-from rag.graphrag.general.extractor import Extractor
-from rag.graphrag.general.mind_map_prompt import MIND_MAP_EXTRACTION_PROMPT
-from rag.graphrag.utils import ErrorHandlerFn, perform_variable_replacements, chat_limiter
-from rag.llm.chat_model import Base as CompletionLLM
+from app.rag.graphrag.general.extractor import Extractor
+from app.rag.graphrag.general.mind_map_prompt import MIND_MAP_EXTRACTION_PROMPT
+from app.rag.graphrag.utils import ErrorHandlerFn, perform_variable_replacements, chat_limiter
+from app.rag.llm.chat_model import Base as CompletionLLM
 import markdown_to_json
 from functools import reduce
-from common.token_utils import num_tokens_from_string
+from app.common.token_utils import num_tokens_from_string
 
 
 @dataclass

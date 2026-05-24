@@ -19,24 +19,24 @@ import logging
 
 import networkx as nx
 
-from api.db.services.document_service import DocumentService
-from api.db.services.task_service import has_canceled
-from common.exceptions import TaskCanceledException
-from common.connection_utils import timeout
-from rag.graphrag.entity_resolution import EntityResolution
-from rag.graphrag.general.community_reports_extractor import CommunityReportsExtractor
-from rag.graphrag.general.extractor import Extractor
-from rag.graphrag.general.graph_extractor import GraphExtractor as GeneralKGExt
-from rag.graphrag.light.graph_extractor import GraphExtractor as LightKGExt
-from rag.graphrag.ner.graph_extractor import GraphExtractor as NerKGExt
-from rag.graphrag.phase_markers import (
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.task_service import has_canceled
+from app.common.exceptions import TaskCanceledException
+from app.common.connection_utils import timeout
+from app.rag.graphrag.entity_resolution import EntityResolution
+from app.rag.graphrag.general.community_reports_extractor import CommunityReportsExtractor
+from app.rag.graphrag.general.extractor import Extractor
+from app.rag.graphrag.general.graph_extractor import GraphExtractor as GeneralKGExt
+from app.rag.graphrag.light.graph_extractor import GraphExtractor as LightKGExt
+from app.rag.graphrag.ner.graph_extractor import GraphExtractor as NerKGExt
+from app.rag.graphrag.phase_markers import (
     PHASE_COMMUNITY,
     PHASE_RESOLUTION,
     clear_phase_markers,
     has_phase_marker,
     set_phase_marker,
 )
-from rag.graphrag.utils import (
+from app.rag.graphrag.utils import (
     GraphChange,
     chunk_id,
     does_graph_contains,
@@ -46,11 +46,11 @@ from rag.graphrag.utils import (
     set_graph,
     tidy_graph,
 )
-from common.misc_utils import thread_pool_exec
-from rag.nlp import rag_tokenizer, search
-from rag.utils.redis_conn import RedisDistributedLock
-from common import settings
-from common.doc_store.doc_store_base import OrderByExpr
+from app.common.misc_utils import thread_pool_exec
+from app.rag.nlp import rag_tokenizer, search
+from app.rag.utils.redis_conn import RedisDistributedLock
+from app.common import settings
+from app.common.doc_store.doc_store_base import OrderByExpr
 
 
 DEFAULT_GRAPHRAG_BATCH_CHUNK_TOKEN_SIZE = 4096
@@ -315,7 +315,7 @@ async def run_graphrag_for_kb(
         callback(msg=f"[GraphRAG] dataset:{kb_id} has {len(doc_ids)} documents to process.")
 
     def load_doc_chunks(doc_id: str) -> list[str]:
-        from common.token_utils import num_tokens_from_string
+        from app.common.token_utils import num_tokens_from_string
 
         chunks = []
         current_chunk = ""

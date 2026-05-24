@@ -18,16 +18,16 @@ from docx import Document
 import re
 import pandas as pd
 from collections import Counter
-from rag.nlp import rag_tokenizer
+from app.rag.nlp import rag_tokenizer
 from io import BytesIO
 import logging
-from common.constants import MAXIMUM_PAGE_NUMBER
+from app.common.constants import MAXIMUM_PAGE_NUMBER
 from docx.image.exceptions import (
     InvalidImageStreamError,
     UnexpectedEndOfFileError,
     UnrecognizedImageError,
 )
-from rag.utils.lazy_image import LazyImage
+from app.rag.utils.lazy_image import LazyImage
 
 class RAGFlowDocxParser:
     def get_picture(self, document, paragraph):

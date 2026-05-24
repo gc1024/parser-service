@@ -1,4 +1,5 @@
 #
+import sys
 #  Copyright 2025 The InfiniFlow Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,12 +33,16 @@ import numpy as np
 import pdfplumber
 import requests
 from PIL import Image
-from enum import StrEnum
+import sys
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+else:
+    from strenum import StrEnum
 
-from deepdoc.parser.pdf_parser import RAGFlowPdfParser
-from deepdoc.parser.utils import extract_pdf_outlines
+from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
+from app.deepdoc.parser.utils import extract_pdf_outlines
 
-from common.constants import MAXIMUM_PAGE_NUMBER
+from app.common.constants import MAXIMUM_PAGE_NUMBER
 
 LOCK_KEY_pdfplumber = "global_shared_lock_pdfplumber"
 if LOCK_KEY_pdfplumber not in sys.modules:
@@ -678,8 +683,8 @@ class MinerUParser(RAGFlowPdfParser):
         text — closing issue #14869.
         """
         from concurrent.futures import ThreadPoolExecutor, as_completed
-        from rag.app.picture import vision_llm_chunk
-        from rag.prompts.generator import vision_llm_figure_describe_prompt
+        from app.rag.app.picture import vision_llm_chunk
+        from app.rag.prompts.generator import vision_llm_figure_describe_prompt
 
         image_jobs = [
             (idx, item)

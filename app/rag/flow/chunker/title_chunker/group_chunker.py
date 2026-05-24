@@ -13,8 +13,8 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from common.token_utils import num_tokens_from_string
-from rag.flow.chunker.title_chunker.common import (
+from app.common.token_utils import num_tokens_from_string
+from app.rag.flow.chunker.title_chunker.common import (
     BaseTitleChunker,
     resolve_target_level,
 )

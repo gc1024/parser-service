@@ -37,9 +37,9 @@ from tencentcloud.common.profile.http_profile import HttpProfile
 from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
 from tencentcloud.lkeap.v20240522 import lkeap_client, models
 
-from common.config_utils import get_base_config
-from deepdoc.parser.pdf_parser import RAGFlowPdfParser
-from deepdoc.parser.utils import extract_pdf_outlines
+from app.common.config_utils import get_base_config
+from app.deepdoc.parser.pdf_parser import RAGFlowPdfParser
+from app.deepdoc.parser.utils import extract_pdf_outlines
 
 
 class TencentCloudAPIClient:

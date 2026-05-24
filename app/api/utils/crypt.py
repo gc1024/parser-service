@@ -20,7 +20,7 @@ import sys
 from pathlib import Path
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Cipher import PKCS1_v1_5 as Cipher_pkcs1_v1_5
-from common.file_utils import get_project_base_directory
+from app.common.file_utils import get_project_base_directory
 
 
 def crypt(line):

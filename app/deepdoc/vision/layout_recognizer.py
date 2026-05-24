@@ -25,9 +25,9 @@ import cv2
 import numpy as np
 from huggingface_hub import snapshot_download
 
-from common.file_utils import get_project_base_directory
-from deepdoc.vision import Recognizer
-from deepdoc.vision.operators import nms
+from app.common.file_utils import get_project_base_directory
+from app.deepdoc.vision import Recognizer
+from app.deepdoc.vision.operators import nms
 
 
 class LayoutRecognizer(Recognizer):
@@ -51,7 +51,7 @@ class LayoutRecognizer(Recognizer):
 
         dla_url = os.environ.get("DEEPDOC_URL") or os.environ.get("TENSORRT_DLA_SVR")
         if dla_url:
-            from deepdoc.vision.dla_cli import DLAClient
+            from app.deepdoc.vision.dla_cli import DLAClient
 
             self.client = DLAClient(dla_url)
             env_used = "DEEPDOC_URL" if os.environ.get("DEEPDOC_URL") else "TENSORRT_DLA_SVR"

@@ -23,25 +23,25 @@ from copy import deepcopy
 
 from peewee import IntegrityError
 
-from api.db import UserTenantRole
-from api.db.db_models import init_database_tables as init_web_db, LLMFactories, LLM, TenantLLM, Knowledgebase, Dialog, Memory
-from api.db.services import UserService
-from api.db.services.canvas_service import CanvasTemplateService
-from api.db.services.document_service import DocumentService
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.memory_service import MemoryService
-from api.db.services.tenant_llm_service import LLMFactoriesService, TenantLLMService
-from api.db.services.llm_service import LLMService, LLMBundle, get_init_tenant_llm
-from api.db.services.user_service import TenantService, UserTenantService
-from api.db.services.system_settings_service import SystemSettingsService
-from api.db.services.dialog_service import DialogService
-from api.db.template_utils import normalize_canvas_template_categories
-from api.db.joint_services.memory_message_service import init_message_id_sequence, init_memory_size_cache, fix_missing_tokenized_memory
-from api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
-from common.constants import LLMType
-from common.file_utils import get_project_base_directory
-from common import settings
-from api.common.base64 import encode_to_base64
+from app.api.db import UserTenantRole
+from app.api.db.db_models import init_database_tables as init_web_db, LLMFactories, LLM, TenantLLM, Knowledgebase, Dialog, Memory
+from app.api.db.services import UserService
+from app.api.db.services.canvas_service import CanvasTemplateService
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.memory_service import MemoryService
+from app.api.db.services.tenant_llm_service import LLMFactoriesService, TenantLLMService
+from app.api.db.services.llm_service import LLMService, LLMBundle, get_init_tenant_llm
+from app.api.db.services.user_service import TenantService, UserTenantService
+from app.api.db.services.system_settings_service import SystemSettingsService
+from app.api.db.services.dialog_service import DialogService
+from app.api.db.template_utils import normalize_canvas_template_categories
+from app.api.db.joint_services.memory_message_service import init_message_id_sequence, init_memory_size_cache, fix_missing_tokenized_memory
+from app.api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
+from app.common.constants import LLMType
+from app.common.file_utils import get_project_base_directory
+from app.common import settings
+from app.api.common.base64 import encode_to_base64
 
 DEFAULT_SUPERUSER_NICKNAME = os.getenv("DEFAULT_SUPERUSER_NICKNAME", "admin")
 DEFAULT_SUPERUSER_EMAIL = os.getenv("DEFAULT_SUPERUSER_EMAIL", "admin@ragflow.io")

@@ -19,8 +19,8 @@ import datetime
 from io import BytesIO
 from google.cloud import storage
 from google.api_core.exceptions import NotFound
-from common.decorator import singleton
-from common import settings
+from app.common.decorator import singleton
+from app.common import settings
 
 
 @singleton

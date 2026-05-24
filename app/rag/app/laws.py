@@ -19,13 +19,13 @@ import re
 from io import BytesIO
 from docx import Document
 
-from common.constants import ParserType, MAXIMUM_PAGE_NUMBER
-from deepdoc.parser.utils import get_text
-from rag.nlp import bullets_category, remove_contents_table, make_colon_as_title, tokenize_chunks, docx_question_level, tree_merge
-from rag.nlp import rag_tokenizer, Node
-from deepdoc.parser import PdfParser, DocxParser, HtmlParser
-from rag.app.naive import by_plaintext, PARSERS
-from common.parser_config_utils import normalize_layout_recognizer
+from app.common.constants import ParserType, MAXIMUM_PAGE_NUMBER
+from app.deepdoc.parser.utils import get_text
+from app.rag.nlp import bullets_category, remove_contents_table, make_colon_as_title, tokenize_chunks, docx_question_level, tree_merge
+from app.rag.nlp import rag_tokenizer, Node
+from app.deepdoc.parser import PdfParser, DocxParser, HtmlParser
+from app.rag.app.naive import by_plaintext, PARSERS
+from app.common.parser_config_utils import normalize_layout_recognizer
 
 
 class Docx(DocxParser):

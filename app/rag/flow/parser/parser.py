@@ -24,26 +24,26 @@ from litellm import logging
 import numpy as np
 from PIL import Image
 
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
-from api.db.services.llm_service import LLMBundle
-from api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
-from common import settings
-from common.constants import LLMType
-from common.misc_utils import get_uuid, thread_pool_exec
-from deepdoc.parser import ExcelParser, HtmlParser, TxtParser
-from deepdoc.parser.docling_parser import DoclingParser
-from deepdoc.parser.pdf_parser import PlainParser, RAGFlowPdfParser, VisionParser
-from deepdoc.parser.tcadp_parser import TCADPParser
-from rag.app.naive import Docx
-from rag.flow.base import ProcessBase, ProcessParamBase
-from rag.flow.parser.pdf_chunk_metadata import (
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
+from app.common import settings
+from app.common.constants import LLMType
+from app.common.misc_utils import get_uuid, thread_pool_exec
+from app.deepdoc.parser import ExcelParser, HtmlParser, TxtParser
+from app.deepdoc.parser.docling_parser import DoclingParser
+from app.deepdoc.parser.pdf_parser import PlainParser, RAGFlowPdfParser, VisionParser
+from app.deepdoc.parser.tcadp_parser import TCADPParser
+from app.rag.app.naive import Docx
+from app.rag.flow.base import ProcessBase, ProcessParamBase
+from app.rag.flow.parser.pdf_chunk_metadata import (
     extract_pdf_positions,
     normalize_pdf_items_metadata,
     reorder_multi_column_bboxes,
 )
-from rag.flow.parser.schema import ParserFromUpstream
-from rag.flow.parser.utils import (
+from app.rag.flow.parser.schema import ParserFromUpstream
+from app.rag.flow.parser.utils import (
     enhance_media_sections_with_vision,
     extract_word_outlines,
     extract_docx_header_footer_texts,
@@ -53,8 +53,8 @@ from rag.flow.parser.utils import (
     remove_toc_pdf,
     remove_toc_word,
 )
-from rag.llm.cv_model import Base as VLM
-from rag.utils.base64_image import image2id
+from app.rag.llm.cv_model import Base as VLM
+from app.rag.utils.base64_image import image2id
 
 
 class ParserParam(ProcessParamBase):
@@ -368,7 +368,7 @@ class Parser(ProcessBase):
                 if not tenant_id:
                     return None
 
-                from api.db.services.tenant_llm_service import TenantLLMService
+                from app.api.db.services.tenant_llm_service import TenantLLMService
 
                 env_name = TenantLLMService.ensure_mineru_from_env(tenant_id)
                 candidates = TenantLLMService.query(tenant_id=tenant_id, llm_factory="MinerU", model_type=LLMType.OCR.value)
@@ -446,7 +446,7 @@ class Parser(ProcessBase):
                 tenant_id = self._canvas._tenant_id
                 if not tenant_id:
                     return None
-                from api.db.services.tenant_llm_service import TenantLLMService
+                from app.api.db.services.tenant_llm_service import TenantLLMService
                 env_name = TenantLLMService.ensure_opendataloader_from_env(tenant_id)
                 candidates = TenantLLMService.query(tenant_id=tenant_id, llm_factory="OpenDataLoader", model_type=LLMType.OCR.value)
                 if candidates:
@@ -550,7 +550,7 @@ class Parser(ProcessBase):
                 if not tenant_id:
                     return None
 
-                from api.db.services.tenant_llm_service import TenantLLMService
+                from app.api.db.services.tenant_llm_service import TenantLLMService
 
                 env_name = TenantLLMService.ensure_paddleocr_from_env(tenant_id)
                 candidates = TenantLLMService.query(tenant_id=tenant_id, llm_factory="PaddleOCR", model_type=LLMType.OCR.value)
@@ -936,7 +936,7 @@ class Parser(ProcessBase):
                 self.set_output("json", result)
         else:
             # Default DeepDOC parser (supports .pptx format)
-            from deepdoc.parser.ppt_parser import RAGFlowPptParser as ppt_parser
+            from app.deepdoc.parser.ppt_parser import RAGFlowPptParser as ppt_parser
 
             ppt_parser = ppt_parser()
             txts = ppt_parser(blob, 0, 100000, None)
@@ -952,8 +952,8 @@ class Parser(ProcessBase):
         """Parse markdown files into text/json sections."""
         from functools import reduce
 
-        from rag.app.naive import Markdown as naive_markdown_parser
-        from rag.nlp import concat_img
+        from app.rag.app.naive import Markdown as naive_markdown_parser
+        from app.rag.nlp import concat_img
 
         self.callback(random.randint(1, 5) / 100.0, "Start to work on a markdown.")
         conf = self._param.setups["markdown"]
@@ -1051,7 +1051,7 @@ class Parser(ProcessBase):
 
     def _image(self, name, blob, **kwargs):
         """Parse images with OCR or image-to-text models."""
-        from deepdoc.vision import OCR
+        from app.deepdoc.vision import OCR
 
         self.callback(random.randint(1, 5) / 100.0, "Start to work on an image.")
         conf = self._param.setups["image"]
@@ -1262,7 +1262,7 @@ class Parser(ProcessBase):
 
     def _epub(self, name, blob, **kwargs):
         """Parse EPUB files into text/json sections."""
-        from deepdoc.parser import EpubParser
+        from app.deepdoc.parser import EpubParser
 
         self.callback(random.randint(1, 5) / 100.0, "Start to work on an EPUB.")
         conf = self._param.setups["epub"]

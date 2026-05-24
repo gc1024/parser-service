@@ -95,7 +95,7 @@ def enrich_chunks_with_document_metadata(
 
     # Resolve service lazily so callers/tests that swap service modules at runtime
     # (e.g. via monkeypatch) don't get stuck with a stale class reference.
-    from api.db.services.doc_metadata_service import DocMetadataService
+    from app.api.db.services.doc_metadata_service import DocMetadataService
     metadata_getter = getattr(DocMetadataService, "get_metadata_for_documents", None)
     if not callable(metadata_getter):
         logging.warning(

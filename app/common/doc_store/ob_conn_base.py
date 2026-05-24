@@ -27,7 +27,7 @@ from pyobvector import ObVecClient, FtsIndexParam, FtsParser, VECTOR
 from sqlalchemy import Column, JSON, Table
 from sqlalchemy.dialects.mysql import VARCHAR
 
-from common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr
+from app.common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr
 
 ATTEMPT_TIME = 2
 
@@ -71,7 +71,7 @@ def _try_with_lock(lock_name: str, process_func, check_func, timeout: int = None
         timeout = int(os.environ.get("OB_DDL_TIMEOUT", "60"))
 
     if not check_func():
-        from rag.utils.redis_conn import RedisDistributedLock
+        from app.rag.utils.redis_conn import RedisDistributedLock
         lock = RedisDistributedLock(lock_name)
         if lock.acquire():
             try:
@@ -98,7 +98,7 @@ class OBConnectionBase(DocStoreConnection):
     """Base class for OceanBase document store connections."""
 
     def __init__(self, logger_name: str = 'ragflow.ob_conn'):
-        from common.doc_store.ob_conn_pool import OB_CONN
+        from app.common.doc_store.ob_conn_pool import OB_CONN
 
         self.logger = logging.getLogger(logger_name)
         self.client: ObVecClient = OB_CONN.get_client()

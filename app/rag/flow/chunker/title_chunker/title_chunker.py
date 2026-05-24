@@ -13,10 +13,10 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from rag.flow.base import ProcessBase
-from rag.flow.chunker.title_chunker.group_chunker import GroupTitleChunker
-from rag.flow.chunker.title_chunker.hierarchy_chunker import HierarchyTitleChunker
-from rag.flow.chunker.title_chunker.schema import TitleChunkerFromUpstream
+from app.rag.flow.base import ProcessBase
+from app.rag.flow.chunker.title_chunker.group_chunker import GroupTitleChunker
+from app.rag.flow.chunker.title_chunker.hierarchy_chunker import HierarchyTitleChunker
+from app.rag.flow.chunker.title_chunker.schema import TitleChunkerFromUpstream
 
 class TitleChunker(ProcessBase):
     component_name = "TitleChunker"

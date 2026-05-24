@@ -21,7 +21,7 @@ import re
 from quart import Quart
 from werkzeug.security import generate_password_hash
 
-from api.db.services import UserService
+from app.api.db.services import UserService
 
 
 @click.command('reset-password', help='Reset the account password.')

@@ -17,14 +17,14 @@ from typing import cast
 import bs4
 from pydantic import BaseModel
 
-from common.data_source.config import IMAP_CONNECTOR_SIZE_THRESHOLD, DocumentSource
-from common.data_source.interfaces import (
+from app.common.data_source.config import IMAP_CONNECTOR_SIZE_THRESHOLD, DocumentSource
+from app.common.data_source.interfaces import (
     CheckpointOutput,
     CheckpointedConnectorWithPermSync,
     CredentialsConnector,
     CredentialsProviderInterface,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     BasicExpertInfo,
     ConnectorCheckpoint,
     Document,
@@ -763,7 +763,7 @@ if __name__ == "__main__":
     import time
     import uuid
     from types import TracebackType
-    from common.data_source.utils import load_all_docs_from_checkpoint_connector
+    from app.common.data_source.utils import load_all_docs_from_checkpoint_connector
 
 
     class OnyxStaticCredentialsProvider(

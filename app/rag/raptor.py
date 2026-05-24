@@ -23,19 +23,19 @@ import umap
 from sklearn.cluster import AgglomerativeClustering
 from sklearn.mixture import GaussianMixture
 
-from api.db.services.task_service import has_canceled
-from common.connection_utils import timeout
-from common.exceptions import TaskCanceledException
-from common.token_utils import truncate
-from rag.graphrag.utils import (
+from app.api.db.services.task_service import has_canceled
+from app.common.connection_utils import timeout
+from app.common.exceptions import TaskCanceledException
+from app.common.token_utils import truncate
+from app.rag.graphrag.utils import (
     chat_limiter,
     get_embed_cache,
     get_llm_cache,
     set_embed_cache,
     set_llm_cache,
 )
-from common.misc_utils import thread_pool_exec
-from rag.utils.raptor_utils import (
+from app.common.misc_utils import thread_pool_exec
+from app.rag.utils.raptor_utils import (
     AHC_CLUSTERING_METHOD,
     GMM_CLUSTERING_METHOD,
     PSI_TREE_BUILDER,

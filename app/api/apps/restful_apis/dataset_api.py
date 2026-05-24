@@ -17,10 +17,10 @@ import logging
 
 from peewee import OperationalError
 from quart import request
-from common.constants import RetCode
-from api.apps import login_required, current_user
-from api.utils.api_utils import get_error_argument_result, get_error_data_result, get_json_result, get_result, add_tenant_id_to_kwargs
-from api.utils.validation_utils import (
+from app.common.constants import RetCode
+from app.api.apps import login_required, current_user
+from app.api.utils.api_utils import get_error_argument_result, get_error_data_result, get_json_result, get_result, add_tenant_id_to_kwargs
+from app.api.utils.validation_utils import (
     CreateDatasetReq,
     DeleteDatasetReq,
     ListDatasetReq,
@@ -30,7 +30,7 @@ from api.utils.validation_utils import (
     validate_and_parse_json_request,
     validate_and_parse_request_args,
 )
-from api.apps.services import dataset_api_service
+from app.api.apps.services import dataset_api_service
 
 
 @manager.route("/datasets/tags/aggregation", methods=["GET"])  # noqa: F821
@@ -777,7 +777,7 @@ async def update_auto_metadata(tenant_id, dataset_id):
         schema:
           type: object
     """
-    from api.utils.validation_utils import AutoMetadataConfig
+    from app.api.utils.validation_utils import AutoMetadataConfig
 
     cfg, err = await validate_and_parse_json_request(request, AutoMetadataConfig)
     if err is not None:

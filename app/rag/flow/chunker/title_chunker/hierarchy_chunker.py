@@ -13,7 +13,7 @@
 #  See the License for the specific language governing permissions and
 #  limitations under the License.
 
-from rag.flow.chunker.title_chunker.common import (
+from app.rag.flow.chunker.title_chunker.common import (
     BaseTitleChunker,
     resolve_target_level,
 )

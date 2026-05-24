@@ -17,15 +17,15 @@ from dataclasses import dataclass
 import networkx as nx
 import pandas as pd
 
-from api.db.services.task_service import has_canceled
-from common.exceptions import TaskCanceledException
-from rag.graphrag.general import leiden
-from rag.graphrag.general.community_report_prompt import COMMUNITY_REPORT_PROMPT
-from rag.graphrag.general.extractor import Extractor
-from rag.graphrag.general.leiden import add_community_info2graph
-from rag.llm.chat_model import Base as CompletionLLM
-from rag.graphrag.utils import perform_variable_replacements, dict_has_keys_with_types, chat_limiter
-from common.token_utils import num_tokens_from_string
+from app.api.db.services.task_service import has_canceled
+from app.common.exceptions import TaskCanceledException
+from app.rag.graphrag.general import leiden
+from app.rag.graphrag.general.community_report_prompt import COMMUNITY_REPORT_PROMPT
+from app.rag.graphrag.general.extractor import Extractor
+from app.rag.graphrag.general.leiden import add_community_info2graph
+from app.rag.llm.chat_model import Base as CompletionLLM
+from app.rag.graphrag.utils import perform_variable_replacements, dict_has_keys_with_types, chat_limiter
+from app.common.token_utils import num_tokens_from_string
 
 @dataclass
 class CommunityReportsResult:

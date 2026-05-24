@@ -5,7 +5,7 @@ from collections.abc import Generator
 from datetime import datetime
 from typing import Generic
 from typing import TypeVar
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     BaseConnector,
     CheckpointedConnector,
     CheckpointedConnectorWithPermSync,
@@ -13,7 +13,7 @@ from common.data_source.interfaces import (
     LoadConnector,
     PollConnector,
 )
-from common.data_source.models import ConnectorCheckpoint, ConnectorFailure, Document
+from app.common.data_source.models import ConnectorCheckpoint, ConnectorFailure, Document
 
 
 TimeRange = tuple[datetime, datetime]

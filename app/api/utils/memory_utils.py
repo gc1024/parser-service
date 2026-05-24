@@ -14,7 +14,7 @@
 #  limitations under the License.
 #
 from typing import List
-from common.constants import MemoryType
+from app.common.constants import MemoryType
 
 def format_ret_data_from_memory(memory):
     return {

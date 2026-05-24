@@ -6,19 +6,19 @@ from typing import Any, Optional
 
 from webdav4.client import Client as WebDAVClient
 
-from common.data_source.utils import (
+from app.common.data_source.utils import (
     get_file_ext,
     is_accepted_file_ext,
 )
-from common.data_source.config import DocumentSource, INDEX_BATCH_SIZE, BLOB_STORAGE_SIZE_THRESHOLD
-from common.data_source.exceptions import (
+from app.common.data_source.config import DocumentSource, INDEX_BATCH_SIZE, BLOB_STORAGE_SIZE_THRESHOLD
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     CredentialExpiredError,
     InsufficientPermissionsError
 )
-from common.data_source.interfaces import LoadConnector, OnyxExtensionType, PollConnector, SlimConnectorWithPermSync
-from common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
+from app.common.data_source.interfaces import LoadConnector, OnyxExtensionType, PollConnector, SlimConnectorWithPermSync
+from app.common.data_source.models import Document, GenerateDocumentsOutput, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch, SlimDocument
 
 
 class WebDAVConnector(LoadConnector, PollConnector, SlimConnectorWithPermSync):

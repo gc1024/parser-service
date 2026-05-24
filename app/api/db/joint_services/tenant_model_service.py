@@ -16,10 +16,10 @@
 import logging
 import os
 import enum
-from common import settings
-from common.constants import LLMType
-from api.db.services.llm_service import LLMService
-from api.db.services.tenant_llm_service import TenantLLMService, TenantService
+from app.common import settings
+from app.common.constants import LLMType
+from app.api.db.services.llm_service import LLMService
+from app.api.db.services.tenant_llm_service import TenantLLMService, TenantService
 
 logger = logging.getLogger(__name__)
 

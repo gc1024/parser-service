@@ -18,14 +18,14 @@ import logging
 
 from PIL import Image
 
-from common.constants import LLMType
-from api.db.services.llm_service import LLMBundle
-from api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
-from common.connection_utils import timeout
-from rag.app.picture import vision_llm_chunk as picture_vision_llm_chunk
-from rag.prompts.generator import vision_llm_figure_describe_prompt, vision_llm_figure_describe_prompt_with_context
-from rag.nlp import append_context2table_image4pdf
-from rag.utils.lazy_image import ensure_pil_image, open_image_for_processing, is_image_like
+from app.common.constants import LLMType
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
+from app.common.connection_utils import timeout
+from app.rag.app.picture import vision_llm_chunk as picture_vision_llm_chunk
+from app.rag.prompts.generator import vision_llm_figure_describe_prompt, vision_llm_figure_describe_prompt_with_context
+from app.rag.nlp import append_context2table_image4pdf
+from app.rag.utils.lazy_image import ensure_pil_image, open_image_for_processing, is_image_like
 
 # need to delete before pr
 def vision_figure_parser_figure_data_wrapper(figures_data_without_positions):

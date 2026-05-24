@@ -44,9 +44,9 @@ import math
 import os
 from typing import List, Tuple
 
-from common.constants import PAGERANK_FLD
-from common import settings
-from rag.nlp.search import index_name
+from app.common.constants import PAGERANK_FLD
+from app.common import settings
+from app.rag.nlp.search import index_name
 
 
 # Feature flag - disabled by default to prevent unintended side effects

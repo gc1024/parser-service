@@ -9,13 +9,13 @@ from typing import Any
 
 import httpx
 
-from common.data_source.config import REQUEST_TIMEOUT_SECONDS, DocumentSource
-from common.data_source.cross_connector_utils.rate_limit_wrapper import (
+from app.common.data_source.config import REQUEST_TIMEOUT_SECONDS, DocumentSource
+from app.common.data_source.cross_connector_utils.rate_limit_wrapper import (
     rate_limit_builder,
 )
-from common.data_source.utils import sanitize_filename
-from common.data_source.models import BasicExpertInfo, Document
-from common.data_source.cross_connector_utils.retry_wrapper import retry_builder
+from app.common.data_source.utils import sanitize_filename
+from app.common.data_source.models import BasicExpertInfo, Document
+from app.common.data_source.cross_connector_utils.retry_wrapper import retry_builder
 
 # Fields requested from Bitbucket PR list endpoint to ensure rich PR data
 PR_LIST_RESPONSE_FIELDS: str = ",".join(

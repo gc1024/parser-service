@@ -37,8 +37,8 @@ chunks.
 import logging
 from collections import defaultdict
 
-from rag.graphrag.general.extractor import Extractor
-from rag.llm.chat_model import Base as CompletionLLM
+from app.rag.graphrag.general.extractor import Extractor
+from app.rag.llm.chat_model import Base as CompletionLLM
 
 # ---------------------------------------------------------------------------
 # spaCy model loading (lazy, module-level singleton)

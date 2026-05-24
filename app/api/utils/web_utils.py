@@ -20,9 +20,9 @@ import re
 import aiosmtplib
 from email.mime.text import MIMEText
 from email.header import Header
-from common import settings
+from app.common import settings
 from quart import render_template_string
-from api.utils.email_templates import EMAIL_TEMPLATES
+from app.api.utils.email_templates import EMAIL_TEMPLATES
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.chrome.options import Options
@@ -192,7 +192,7 @@ def __get_pdf_from_html(path: str, timeout: int, install_driver: bool, print_opt
 def is_valid_url(url: str) -> bool:
     if not re.match(r"(https?)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", url):
         return False
-    from common.ssrf_guard import assert_url_is_safe
+    from app.common.ssrf_guard import assert_url_is_safe
 
     try:
         assert_url_is_safe(url)

@@ -20,16 +20,16 @@ import math
 from collections import OrderedDict, defaultdict
 from dataclasses import dataclass
 
-from rag.nlp import rag_tokenizer, query
+from app.rag.nlp import rag_tokenizer, query
 import numpy as np
-from common.doc_store.doc_store_base import MatchDenseExpr, FusionExpr, OrderByExpr, DocStoreConnection
-from common.string_utils import remove_redundant_spaces
-from common.float_utils import get_float
-from common.constants import PAGERANK_FLD, TAG_FLD
-from common.tag_feature_utils import parse_tag_features
-from common import settings
+from app.common.doc_store.doc_store_base import MatchDenseExpr, FusionExpr, OrderByExpr, DocStoreConnection
+from app.common.string_utils import remove_redundant_spaces
+from app.common.float_utils import get_float
+from app.common.constants import PAGERANK_FLD, TAG_FLD
+from app.common.tag_feature_utils import parse_tag_features
+from app.common import settings
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 def index_name(uid): return f"ragflow_{uid}"
 
@@ -67,7 +67,7 @@ class Dealer:
         unique_doc_ids = list(dict.fromkeys(doc_ids))
 
         def _load():
-            from api.db.services.document_service import DocumentService
+            from app.api.db.services.document_service import DocumentService
 
             return {row["id"] for row in DocumentService.get_by_ids(unique_doc_ids).dicts()}
 
@@ -850,7 +850,7 @@ class Dealer:
         return {a.replace(".", "_"): max(1, c) for a, c in tag_fea}
 
     async def retrieval_by_toc(self, query: str, chunks: list[dict], tenant_ids: list[str], chat_mdl, topn: int = 6):
-        from rag.prompts.generator import relevant_chunks_with_toc # moved from the top of the file to avoid circular import
+        from app.rag.prompts.generator import relevant_chunks_with_toc # moved from the top of the file to avoid circular import
         if not chunks:
             return []
         idx_nms = [index_name(tid) for tid in tenant_ids]

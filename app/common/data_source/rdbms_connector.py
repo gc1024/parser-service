@@ -8,18 +8,18 @@ from datetime import datetime, timezone
 from enum import Enum
 from typing import Any, Dict, Generator, Optional, Union
 
-from common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
-from common.data_source.exceptions import (
+from app.common.data_source.config import DocumentSource, INDEX_BATCH_SIZE
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     LoadConnector,
     PollConnector,
     SecondsSinceUnixEpoch,
     SlimConnectorWithPermSync,
 )
-from common.data_source.models import Document, SlimDocument
+from app.common.data_source.models import Document, SlimDocument
 
 
 class DatabaseType(str, Enum):
@@ -493,7 +493,7 @@ class RDBMSConnector(LoadConnector, PollConnector, SlimConnectorWithPermSync):
         if not self.timestamp_column or self._sync_connector_id is None or self._sync_config is None:
             return
 
-        from api.db.services.connector_service import ConnectorService
+        from app.api.db.services.connector_service import ConnectorService
 
         updated_conf = copy.deepcopy(self._sync_config)
         updated_conf["sync_cursor_value"] = self.serialize_cursor_value(

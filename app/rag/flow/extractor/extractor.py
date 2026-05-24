@@ -20,8 +20,8 @@ from copy import deepcopy
 import xxhash
 
 from agent.component.llm import LLMParam, LLM
-from rag.flow.base import ProcessBase, ProcessParamBase
-from rag.prompts.generator import run_toc_from_text
+from app.rag.flow.base import ProcessBase, ProcessParamBase
+from app.rag.prompts.generator import run_toc_from_text
 
 
 class ExtractorParam(ProcessParamBase, LLMParam):

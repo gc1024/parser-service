@@ -1,47 +1,69 @@
-# Parser Service - RAGFlow Core Dependencies
-# Based on RAGFlow pyproject.toml dependencies
+# Parser Service - Core Dependencies
 
-# ============= Core =============
-audioop-lts>=0.2.1
-aiosmtplib>=5.0.0
-anthropic==0.76.0
-chardet>=5.2.0,<6.0.0
-cn2an==0.5.22
-cohere==5.6.2
-editdistance==0.8.1
-exceptiongroup>=1.3.0,<2.0.0
-extract-msg>=0.39.0
-flasgger>=0.9.7.1,<0.10.0
+# Web Framework
+flask>=3.0.0
+quart>=0.10.0
 flask-cors==6.0.2
 flask-login==0.6.3
 flask-mail>=0.10.0
 flask-session==0.8.0
-infinity-sdk==0.7.0
-infinity-emb>=0.0.66,<0.0.67
-json-repair==0.35.0
-mammoth>=1.11.0
-markdown==3.6
-markdown-to-json==2.1.1
-markdownify>=1.2.0
-minio==7.2.4
+flasgger>=0.9.7.1,<0.10.0
+
+# Database
 mysql-connector-python>=9.0.0,<10.0.0
-onnxruntime==1.23.2; sys_platform == 'darwin' or platform_machine != 'x86_64'
-onnxruntime-gpu==1.23.2; sys_platform != 'darwin' and platform_machine == 'x86_64'
-opencv-python-headless==4.10.0.84
+peewee>=3.17.1,<4.0.0
+redis>=5.0.0
+sqlalchemy>=2.0.0
+
+# Vector Store
+elasticsearch-dsl==8.12.0
 opensearch-py==2.7.1
-ormsgpack>=1.6.0
+infinity-sdk==0.6.10
+infinity-emb>=0.0.66,<0.0.67
+
+# Object Storage
+minio==7.2.4
+boto3>=1.28.0
+
+# Document Parsing
 pdfplumber==0.10.4
-pyclipper>=1.4.0,<2.0.0
-pycryptodomex==3.20.0
-pypandoc>=1.16
 pypdf>=6.10.2
-python-calamine>=0.4.0
 python-docx>=1.1.2,<2.0.0
 python-pptx>=1.0.2,<2.0.0
-redis>=5.0.0
-roman>=0.7.0
-scikit-learn>=1.5.0
-tenacity>=8.0.0
+python-calamine>=0.4.0
+openpyxl>=3.1.5
+pillow>=12.2.0,<13.0.0
+chardet>=5.2.0,<6.0.0
+mammoth>=1.11.0
+extract-msg>=0.39.0
+markdown==3.6
+html2text>=2024.2
+
+# OCR / Vision
+onnxruntime-gpu==1.23.2
+opencv-python-headless==4.10.0.84
+pyclipper>=1.4.0,<2.0.0
+shapely>=2.0.6
+
+# NLP
 tiktoken>=0.8.0
-word2number>=0.0.0
-xgboost>=2.1.0
+scikit-learn>=1.5.0
+xgboost==1.6.0
+
+# LLM
+anthropic==0.76.0
+cohere==5.6.2
+litellm~=1.82.0,!=1.82.7,!=1.82.8
+
+# Utilities
+requests>=2.32.2
+python-dateutil>=2.8.0
+pytz>=2023.3
+tenacity>=8.0.0
+pycryptodomex==3.20.0
+json-repair==0.35.0
+roman-numbers==1.0.2
+word2number==1.1
+cn2an==0.5.22
+editdistance==0.8.1
+exceptiongroup>=1.3.0,<2.0.0

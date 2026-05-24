@@ -22,7 +22,7 @@ start_ts = time.time()
 import os
 os.environ.setdefault("LITELLM_LOCAL_MODEL_COST_MAP", "True")  # no internet, save about 10s
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 import asyncio
 import socket
@@ -33,14 +33,14 @@ import random
 import sys
 import threading
 
-from api.db import PIPELINE_SPECIAL_PROGRESS_FREEZE_TASK_TYPES
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.pipeline_operation_log_service import PipelineOperationLogService
-from api.db.joint_services.memory_message_service import handle_save_to_memory_task
-from common.connection_utils import timeout
-from common.metadata_utils import turn2jsonschema, update_metadata_to
-from rag.utils.base64_image import image2id
-from rag.utils.raptor_utils import (
+from app.api.db import PIPELINE_SPECIAL_PROGRESS_FREEZE_TASK_TYPES
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.pipeline_operation_log_service import PipelineOperationLogService
+from app.api.db.joint_services.memory_message_service import handle_save_to_memory_task
+from app.common.connection_utils import timeout
+from app.common.metadata_utils import turn2jsonschema, update_metadata_to
+from app.rag.utils.base64_image import image2id
+from app.rag.utils.raptor_utils import (
     collect_raptor_chunk_ids,
     collect_raptor_methods,
     get_raptor_clustering_method,
@@ -49,10 +49,10 @@ from rag.utils.raptor_utils import (
     make_raptor_summary_chunk_id,
     should_skip_raptor,
 )
-from common.log_utils import init_root_logger
-from common.config_utils import show_configs
-from rag.graphrag.utils import get_llm_cache, set_llm_cache, get_tags_from_cache, set_tags_to_cache
-from rag.prompts.generator import keyword_extraction, question_proposal, content_tagging, run_toc_from_text, \
+from app.common.log_utils import init_root_logger
+from app.common.config_utils import show_configs
+from app.rag.graphrag.utils import get_llm_cache, set_llm_cache, get_tags_from_cache, set_tags_to_cache
+from app.rag.prompts.generator import keyword_extraction, question_proposal, content_tagging, run_toc_from_text, \
     gen_metadata
 import logging
 import os
@@ -69,30 +69,30 @@ import exceptiongroup
 import faulthandler
 import numpy as np
 from peewee import DoesNotExist
-from common.constants import LLMType, ParserType, PipelineTaskType
-from api.db.services.document_service import DocumentService
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.services.llm_service import LLMBundle
-from api.db.services.task_service import TaskService, has_canceled, CANVAS_DEBUG_DOC_ID, GRAPH_RAPTOR_FAKE_DOC_ID
-from api.db.services.file2document_service import File2DocumentService
-from api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
-from common.versions import get_ragflow_version
-from api.db.db_models import close_connection
-from rag.app import laws, paper, presentation, manual, qa, table, book, resume, picture, naive, one, audio, \
+from app.common.constants import LLMType, ParserType, PipelineTaskType
+from app.api.db.services.document_service import DocumentService
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.services.task_service import TaskService, has_canceled, CANVAS_DEBUG_DOC_ID, GRAPH_RAPTOR_FAKE_DOC_ID
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.joint_services.tenant_model_service import get_model_config_by_type_and_name, get_tenant_default_model_by_type
+from app.common.versions import get_ragflow_version
+from app.api.db.db_models import close_connection
+from app.rag.app import laws, paper, presentation, manual, qa, table, book, resume, picture, naive, one, audio, \
     email, tag
-from rag.nlp import search, rag_tokenizer, add_positions
-from rag.raptor import (
+from app.rag.nlp import search, rag_tokenizer, add_positions
+from app.rag.raptor import (
     RAPTOR_TREE_BUILDER,
 )
-from common.token_utils import num_tokens_from_string, truncate
-from rag.utils.redis_conn import REDIS_CONN, RedisDistributedLock
-from rag.graphrag.utils import chat_limiter
-from common.signal_utils import start_tracemalloc_and_snapshot, stop_tracemalloc
-from common.exceptions import TaskCanceledException
-from common.asyncio_utils import LoopLocalSemaphore
-from common import settings
-from common.constants import PAGERANK_FLD, TAG_FLD, SVR_CONSUMER_GROUP_NAME
-from rag.utils.table_es_metadata import (
+from app.common.token_utils import num_tokens_from_string, truncate
+from app.rag.utils.redis_conn import REDIS_CONN, RedisDistributedLock
+from app.rag.graphrag.utils import chat_limiter
+from app.common.signal_utils import start_tracemalloc_and_snapshot, stop_tracemalloc
+from app.common.exceptions import TaskCanceledException
+from app.common.asyncio_utils import LoopLocalSemaphore
+from app.common import settings
+from app.common.constants import PAGERANK_FLD, TAG_FLD, SVR_CONSUMER_GROUP_NAME
+from app.rag.utils.table_es_metadata import (
     aggregate_table_manual_doc_metadata,
     merge_table_parser_config_from_kb,
     table_parser_strip_doc_metadata_keys,
@@ -685,8 +685,8 @@ async def embedding(docs, mdl, parser_config=None, callback=None):
 
 
 async def run_dataflow(task: dict):
-    from api.db.services.canvas_service import UserCanvasService
-    from rag.flow.pipeline import Pipeline
+    from app.api.db.services.canvas_service import UserCanvasService
+    from app.rag.flow.pipeline import Pipeline
 
     task_start_ts = timer()
     dataflow_id = task["dataflow_id"]
@@ -838,8 +838,8 @@ RAPTOR_METHOD_SEARCH_LIMIT = 10000
 
 async def get_raptor_chunk_field_map(doc_id: str, tenant_id: str, kb_id: str) -> dict:
     """Return stored RAPTOR marker fields for a document."""
-    from common.doc_store.doc_store_base import OrderByExpr
-    from rag.nlp import search as nlp_search
+    from app.common.doc_store.doc_store_base import OrderByExpr
+    from app.rag.nlp import search as nlp_search
 
     async def search_fields(fields: list[str], condition: dict, order_by=None):
         """Search chunk fields in the current knowledge base."""
@@ -899,7 +899,7 @@ async def has_raptor_chunks(doc_id: str, tenant_id: str, kb_id: str, tree_builde
 
 async def delete_raptor_chunks(doc_id: str, tenant_id: str, kb_id: str, keep_method: str | None = None):
     """Delete RAPTOR summaries for doc_id, optionally preserving one method."""
-    from rag.nlp import search as nlp_search
+    from app.rag.nlp import search as nlp_search
 
     if keep_method is None:
         logging.info(
@@ -987,7 +987,7 @@ async def run_raptor_for_kb(row, kb_parser_config, chat_mdl, embd_mdl, vector_si
         """Run RAPTOR and append generated summary chunks for one doc id."""
         nonlocal tk_count, res
         logging.info("RAPTOR: using tree_builder=%s clustering_method=%s for doc %s", tree_builder, clustering_method, did)
-        from rag.raptor import RecursiveAbstractiveProcessing4TreeOrganizedRetrieval as Raptor  # Lazy load, save around 8s
+        from app.rag.raptor import RecursiveAbstractiveProcessing4TreeOrganizedRetrieval as Raptor  # Lazy load, save around 8s
         raptor = Raptor(
             raptor_config.get("max_cluster", 64),
             chat_mdl,
@@ -1419,7 +1419,7 @@ async def do_handle_task(task):
         with_community = graphrag_conf.get("community", False)
         async with kg_limiter:
             # await run_graphrag(task, task_language, with_resolution, with_community, chat_model, embedding_model, progress_callback)
-            from rag.graphrag.general.index import run_graphrag_for_kb # Lazy load, save around 2s
+            from app.rag.graphrag.general.index import run_graphrag_for_kb # Lazy load, save around 2s
             result = await run_graphrag_for_kb(
                 row=task,
                 doc_ids=task.get("doc_ids", []),

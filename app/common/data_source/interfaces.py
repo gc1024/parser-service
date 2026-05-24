@@ -8,7 +8,7 @@ from typing import Any, Dict, Generator, TypeVar, Generic, Callable, TypeAlias
 from collections.abc import Iterator
 from anthropic import BaseModel
 
-from common.data_source.models import (
+from app.common.data_source.models import (
     Document,
     KeyRecord,
     SlimDocument,

@@ -18,14 +18,14 @@ import logging
 from io import BytesIO
 import re
 
-from deepdoc.parser.utils import get_text
-from rag.app import naive
-from rag.nlp import rag_tokenizer, tokenize
-from deepdoc.parser import PdfParser, ExcelParser, HtmlParser
-from deepdoc.parser.figure_parser import vision_figure_parser_docx_wrapper_naive
-from rag.app.naive import by_plaintext, PARSERS
-from common.constants import MAXIMUM_PAGE_NUMBER, MAXIMUM_TASK_PAGE_NUMBER
-from common.parser_config_utils import normalize_layout_recognizer
+from app.deepdoc.parser.utils import get_text
+from app.rag.app import naive
+from app.rag.nlp import rag_tokenizer, tokenize
+from app.deepdoc.parser import PdfParser, ExcelParser, HtmlParser
+from app.deepdoc.parser.figure_parser import vision_figure_parser_docx_wrapper_naive
+from app.rag.app.naive import by_plaintext, PARSERS
+from app.common.constants import MAXIMUM_PAGE_NUMBER, MAXIMUM_TASK_PAGE_NUMBER
+from app.common.parser_config_utils import normalize_layout_recognizer
 
 
 class Pdf(PdfParser):

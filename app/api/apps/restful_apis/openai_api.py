@@ -21,17 +21,17 @@ from uuid import uuid4
 
 from quart import Response, jsonify
 
-from api.apps import current_user, login_required
-from api.db.services.conversation_service import ConversationService, structure_answer
-from api.db.services.dialog_service import DialogService, async_chat
-from api.db.services.doc_metadata_service import DocMetadataService
-from api.db.services.tenant_llm_service import TenantLLMService
-from api.utils.api_utils import get_error_data_result, get_request_json, validate_request
-from api.utils.reference_metadata_utils import enrich_chunks_with_document_metadata
-from common.constants import RetCode, StatusEnum
-from common.metadata_utils import convert_conditions, meta_filter
-from common.token_utils import num_tokens_from_string
-from rag.prompts.generator import chunks_format
+from app.api.apps import current_user, login_required
+from app.api.db.services.conversation_service import ConversationService, structure_answer
+from app.api.db.services.dialog_service import DialogService, async_chat
+from app.api.db.services.doc_metadata_service import DocMetadataService
+from app.api.db.services.tenant_llm_service import TenantLLMService
+from app.api.utils.api_utils import get_error_data_result, get_request_json, validate_request
+from app.api.utils.reference_metadata_utils import enrich_chunks_with_document_metadata
+from app.common.constants import RetCode, StatusEnum
+from app.common.metadata_utils import convert_conditions, meta_filter
+from app.common.token_utils import num_tokens_from_string
+from app.rag.prompts.generator import chunks_format
 
 
 def _validate_llm_id(llm_id, tenant_id, llm_setting=None):

@@ -19,10 +19,10 @@ import json
 import re
 from collections import defaultdict
 
-from common.query_base import QueryBase
-from common.doc_store.doc_store_base import MatchTextExpr
-from rag.nlp import rag_tokenizer, term_weight, synonym
-from rag.utils.redis_conn import REDIS_CONN
+from app.common.query_base import QueryBase
+from app.common.doc_store.doc_store_base import MatchTextExpr
+from app.rag.nlp import rag_tokenizer, term_weight, synonym
+from app.rag.utils.redis_conn import REDIS_CONN
 
 
 class FulltextQueryer(QueryBase):

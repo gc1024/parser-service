@@ -208,7 +208,7 @@ async def apply_meta_data_filter(
         list of doc_ids, ["-999"] when manual filters yield no result, or None
         when auto/semi_auto filters return empty.
     """
-    from rag.prompts.generator import gen_meta_filter  # move from the top of the file to avoid circular import
+    from app.rag.prompts.generator import gen_meta_filter  # move from the top of the file to avoid circular import
 
     doc_ids = list(base_doc_ids) if base_doc_ids else []
 
@@ -232,7 +232,7 @@ async def apply_meta_data_filter(
         """Run conditions through ES/Infinity push-down when possible, in-memory otherwise."""
         if conditions and kb_ids:
             try:
-                from api.db.services.doc_metadata_service import DocMetadataService
+                from app.api.db.services.doc_metadata_service import DocMetadataService
                 doc_ids = DocMetadataService.filter_doc_ids_by_meta_pushdown(kb_ids, conditions, logic)
                 logging.debug(f"Doc ids filtered by metadata: {doc_ids}")
                 if doc_ids is not None:
@@ -297,7 +297,7 @@ def _try_meta_pushdown(
     that exercise ``meta_filter`` directly).
     """
     try:
-        from api.db.services.doc_metadata_service import DocMetadataService
+        from app.api.db.services.doc_metadata_service import DocMetadataService
     except Exception as e:
         logging.debug(f"[apply_meta_data_filter] push-down disabled, import failed: {e}")
         return None

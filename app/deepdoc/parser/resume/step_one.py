@@ -15,7 +15,7 @@
 #
 
 import json
-from deepdoc.parser.resume.entities import degrees, regions, industries
+from app.deepdoc.parser.resume.entities import degrees, regions, industries
 
 FIELDS = [
 "address STRING",

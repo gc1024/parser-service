@@ -23,8 +23,8 @@ import demjson3
 import traceback
 import signal
 import numpy as np
-from deepdoc.parser.resume.entities import degrees, schools, corporations
-from rag.nlp import rag_tokenizer, surname
+from app.deepdoc.parser.resume.entities import degrees, schools, corporations
+from app.rag.nlp import rag_tokenizer, surname
 from xpinyin import Pinyin
 from contextlib import contextmanager
 

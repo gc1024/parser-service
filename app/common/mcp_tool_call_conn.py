@@ -26,7 +26,7 @@ from typing import Any, Literal, Protocol
 
 from typing_extensions import override
 
-from common.constants import MCPServerType
+from app.common.constants import MCPServerType
 from mcp.client.session import ClientSession
 from mcp.client.sse import sse_client
 from mcp.client.streamable_http import streamablehttp_client

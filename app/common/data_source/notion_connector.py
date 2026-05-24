@@ -8,24 +8,24 @@ from urllib.parse import urlparse
 
 from retry import retry
 
-from common.data_source.config import (
+from app.common.data_source.config import (
     INDEX_BATCH_SIZE,
     NOTION_CONNECTOR_DISABLE_RECURSIVE_PAGE_LOOKUP,
     DocumentSource,
 )
-from common.data_source.exceptions import (
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     CredentialExpiredError,
     InsufficientPermissionsError,
     UnexpectedValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     LoadConnector,
     PollConnector,
     SecondsSinceUnixEpoch,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     Document,
     GenerateDocumentsOutput,
     GenerateSlimDocumentOutput,
@@ -35,7 +35,7 @@ from common.data_source.models import (
     SlimDocument,
     TextSection,
 )
-from common.data_source.utils import (
+from app.common.data_source.utils import (
     batch_generator,
     datetime_from_string,
     fetch_notion_data,

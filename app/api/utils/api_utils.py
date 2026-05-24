@@ -41,15 +41,15 @@ except ImportError:  # pragma: no cover - optional dependency
 
 from peewee import OperationalError
 
-from common.constants import ActiveEnum
-from api.db.db_models import APIToken
-from api.utils.json_encode import CustomJSONEncoder
-from common.mcp_tool_call_conn import MCPToolCallSession, close_multiple_mcp_toolcall_sessions
-from api.db.services.tenant_llm_service import LLMFactoriesService
-from common.connection_utils import timeout
-from common.constants import RetCode
-from common import settings
-from common.misc_utils import thread_pool_exec
+from app.common.constants import ActiveEnum
+from app.api.db.db_models import APIToken
+from app.api.utils.json_encode import CustomJSONEncoder
+from app.common.mcp_tool_call_conn import MCPToolCallSession, close_multiple_mcp_toolcall_sessions
+from app.api.db.services.tenant_llm_service import LLMFactoriesService
+from app.common.connection_utils import timeout
+from app.common.constants import RetCode
+from app.common import settings
+from app.common.misc_utils import thread_pool_exec
 
 requests.models.complexjson.dumps = functools.partial(json.dumps, cls=CustomJSONEncoder)
 
@@ -218,8 +218,8 @@ def not_allowed_parameters(*params):
 def active_required(func):
     @wraps(func)
     async def wrapper(*args, **kwargs):
-        from api.db.services import UserService
-        from api.apps import current_user
+        from app.api.db.services import UserService
+        from app.api.apps import current_user
 
         user_id = current_user.id
         usr = UserService.filter_by_id(user_id)
@@ -236,7 +236,7 @@ def active_required(func):
 def add_tenant_id_to_kwargs(func):
     @wraps(func)
     async def wrapper(**kwargs):
-        from api.apps import current_user
+        from app.api.apps import current_user
         kwargs["tenant_id"] = current_user.id
         if inspect.iscoroutinefunction(func):
             return await func(**kwargs)
@@ -320,8 +320,8 @@ def token_required(func):
 
         # Fallback: try login token (for clients that use login token as API token)
         # Login tokens are JWT-encoded (URLSafeTimedSerializer), need to decode to get raw access_token
-        from api.db.services.user_service import UserService
-        from common.constants import StatusEnum
+        from app.api.db.services.user_service import UserService
+        from app.common.constants import StatusEnum
         from common import settings
         from itsdangerous.url_safe import URLSafeTimedSerializer as Serializer
         try:
@@ -330,7 +330,7 @@ def token_required(func):
             user = UserService.query(access_token=raw_token, status=StatusEnum.VALID.value)
             if user:
                 # On success, inject tenant_id from user's tenant
-                from api.db.services.user_service import UserTenantService
+                from app.api.db.services.user_service import UserTenantService
                 tenants = UserTenantService.query(user_id=user[0].id)
                 if tenants:
                     kwargs["tenant_id"] = tenants[0].tenant_id
@@ -576,8 +576,8 @@ def check_duplicate_ids(ids, id_type="item"):
 
 
 def verify_embedding_availability(embd_id: str, tenant_id: str) -> tuple[bool, str | None]:
-    from api.db.services.llm_service import LLMService
-    from api.db.services.tenant_llm_service import TenantLLMService
+    from app.api.db.services.llm_service import LLMService
+    from app.api.db.services.tenant_llm_service import TenantLLMService
 
     """
     Verifies availability of an embedding model for a specific tenant.

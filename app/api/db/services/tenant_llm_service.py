@@ -18,12 +18,12 @@ import json
 import logging
 from peewee import IntegrityError
 from langfuse import Langfuse
-from common import settings
-from common.constants import MINERU_DEFAULT_CONFIG, MINERU_ENV_KEYS, OPENDATALOADER_DEFAULT_CONFIG, OPENDATALOADER_ENV_KEYS, PADDLEOCR_DEFAULT_CONFIG, PADDLEOCR_ENV_KEYS, LLMType
-from api.db.db_models import DB, LLMFactories, TenantLLM
-from api.db.services.common_service import CommonService
-from api.db.services.langfuse_service import TenantLangfuseService
-from api.db.services.user_service import TenantService
+from app.common import settings
+from app.common.constants import MINERU_DEFAULT_CONFIG, MINERU_ENV_KEYS, OPENDATALOADER_DEFAULT_CONFIG, OPENDATALOADER_ENV_KEYS, PADDLEOCR_DEFAULT_CONFIG, PADDLEOCR_ENV_KEYS, LLMType
+from app.api.db.db_models import DB, LLMFactories, TenantLLM
+from app.api.db.services.common_service import CommonService
+from app.api.db.services.langfuse_service import TenantLangfuseService
+from app.api.db.services.user_service import TenantService
 
 
 class LLMFactoriesService(CommonService):
@@ -127,7 +127,7 @@ class TenantLLMService(CommonService):
     @classmethod
     @DB.connection_context()
     def get_model_config(cls, tenant_id, llm_type, llm_name=None):
-        from api.db.services.llm_service import LLMService
+        from app.api.db.services.llm_service import LLMService
 
         e, tenant = TenantService.get_by_id(tenant_id)
         if not e:
@@ -182,7 +182,7 @@ class TenantLLMService(CommonService):
     def model_instance(cls, model_config: dict, lang="Chinese", **kwargs):
         if not model_config:
             raise LookupError("Model config is required")
-        from rag.llm import ChatModel, CvModel, EmbeddingModel, OcrModel, RerankModel, Seq2txtModel, TTSModel
+        from app.rag.llm import ChatModel, CvModel, EmbeddingModel, OcrModel, RerankModel, Seq2txtModel, TTSModel
 
         kwargs.update({"provider": model_config["llm_factory"]})
         api_key = model_config.get("api_key_payload", model_config["api_key"])
@@ -476,7 +476,7 @@ class TenantLLMService(CommonService):
 
     @staticmethod
     def llm_id2llm_type(llm_id: str) -> str | None:
-        from api.db.services.llm_service import LLMService
+        from app.api.db.services.llm_service import LLMService
 
         llm_id, *_ = TenantLLMService.split_model_name_and_factory(llm_id)
         llm_factories = settings.FACTORY_LLM_INFOS

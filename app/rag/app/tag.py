@@ -18,10 +18,10 @@ import re
 import csv
 from copy import deepcopy
 
-from deepdoc.parser.utils import get_text
-from rag.app.qa import Excel
-from rag.nlp import rag_tokenizer
-from common import settings
+from app.deepdoc.parser.utils import get_text
+from app.rag.app.qa import Excel
+from app.rag.nlp import rag_tokenizer
+from app.common import settings
 
 
 def beAdoc(d, q, a, eng, row_num=-1):
@@ -123,8 +123,8 @@ def chunk(filename, binary=None, lang="Chinese", callback=None, **kwargs):
 
 
 def label_question(question, kbs):
-    from api.db.services.knowledgebase_service import KnowledgebaseService
-    from rag.graphrag.utils import get_tags_from_cache, set_tags_to_cache
+    from app.api.db.services.knowledgebase_service import KnowledgebaseService
+    from app.rag.graphrag.utils import get_tags_from_cache, set_tags_to_cache
     tags = None
     tag_kb_ids = []
     for kb in kbs:

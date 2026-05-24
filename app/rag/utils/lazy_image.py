@@ -3,7 +3,7 @@ from io import BytesIO
 
 from PIL import Image
 
-from rag.nlp import concat_img
+from app.rag.nlp import concat_img
 
 
 class LazyImage:

@@ -1,4 +1,5 @@
 #
+import sys
 #  Copyright 2024 The InfiniFlow Authors. All Rights Reserved.
 #
 #  Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,7 +20,11 @@
 import importlib
 import inspect
 
-from enum import StrEnum
+import sys
+if sys.version_info >= (3, 11):
+    from enum import StrEnum
+else:
+    from strenum import StrEnum
 
 
 class SupportedLiteLLMProvider(StrEnum):

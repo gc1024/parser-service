@@ -17,9 +17,9 @@ from datetime import datetime
 
 import peewee
 
-from api.db.db_models import DB, API4Conversation, APIToken, Dialog
-from api.db.services.common_service import CommonService
-from common.time_utils import current_timestamp, datetime_format
+from app.api.db.db_models import DB, API4Conversation, APIToken, Dialog
+from app.api.db.services.common_service import CommonService
+from app.common.time_utils import current_timestamp, datetime_format
 
 
 class APITokenService(CommonService):

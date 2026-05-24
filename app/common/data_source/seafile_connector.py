@@ -5,23 +5,23 @@ from typing import Any, Optional
 
 from retry import retry
 
-from common.data_source.utils import (
+from app.common.data_source.utils import (
     get_file_ext,
     rl_requests,
 )
-from common.data_source.config import (
+from app.common.data_source.config import (
     DocumentSource,
     INDEX_BATCH_SIZE,
     BLOB_STORAGE_SIZE_THRESHOLD,
 )
-from common.data_source.exceptions import (
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     CredentialExpiredError,
     InsufficientPermissionsError,
 )
-from common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
-from common.data_source.models import (
+from app.common.data_source.interfaces import LoadConnector, PollConnector, SlimConnectorWithPermSync
+from app.common.data_source.models import (
     Document,
     SecondsSinceUnixEpoch,
     GenerateDocumentsOutput,

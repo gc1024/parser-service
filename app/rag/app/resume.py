@@ -39,8 +39,8 @@ from io import BytesIO
 from typing import Optional
 import numpy as np
 
-from common import settings
-from common.constants import MAXIMUM_PAGE_NUMBER
+from app.common import settings
+from app.common.constants import MAXIMUM_PAGE_NUMBER
 
 # tiktoken for long random string filtering (ref: SmartResume should_remove strategy)
 try:
@@ -53,8 +53,8 @@ except ImportError:
 _LONG_RANDOM_PATTERN = re.compile(r'[a-zA-Z0-9\-~_]{40,}')
 
 import logging as logger
-from rag.nlp import rag_tokenizer
-from deepdoc.parser.utils import get_text
+from app.rag.nlp import rag_tokenizer
+from app.deepdoc.parser.utils import get_text
 
 # json_repair for fixing malformed JSON from LLM responses (ref: SmartResume fault-tolerance strategy)
 try:
@@ -78,7 +78,7 @@ def _get_layout_recognizer():
     global _layout_recognizer
     if _layout_recognizer is None:
         try:
-            from deepdoc.vision import LayoutRecognizer
+            from app.deepdoc.vision import LayoutRecognizer
             _layout_recognizer = LayoutRecognizer("layout")
             logger.info("YOLOv10 layout detector loaded successfully")
         except Exception as e:
@@ -187,7 +187,7 @@ FIELD_MAP = FIELD_MAP_ZH
 # Each prompt ends with /no_think marker to suppress reasoning model's thinking output
 # Prompts loaded from md files under rag/prompts/, supporting bilingual versions
 
-from rag.prompts.template import load_prompt
+from app.rag.prompts.template import load_prompt
 
 
 def _load_resume_prompt(name: str, lang: str) -> str:
@@ -531,7 +531,7 @@ def _extract_ocr_text(binary: bytes, meta_blocks: list[dict] | None = None) -> l
         meta_blocks = []
     try:
         import pdfplumber
-        from deepdoc.vision.ocr import OCR
+        from app.deepdoc.vision.ocr import OCR
         import numpy as np
 
         ocr = OCR()
@@ -1068,8 +1068,8 @@ def _call_llm(prompt: str, tenant_id , lang: str) -> Optional[dict]:
 
     """
     try:
-        from api.db.services.llm_service import LLMBundle
-        from common.constants import LLMType
+        from app.api.db.services.llm_service import LLMBundle
+        from app.common.constants import LLMType
 
         llm =  LLMBundle(tenant_id, LLMType.CHAT, lang=lang)
 
@@ -2421,7 +2421,7 @@ def _build_chunk_document(filename: str, resume: dict,
     # add_positions input format: [(page, left, right, top, bottom), ...]
     #   - page starts from 0, function internally stores +1
     #   - task_executor sorts by page_num_int and top_int (page first, then Y coordinate)
-    from rag.nlp import add_positions
+    from app.rag.nlp import add_positions
 
     for i, ck in enumerate(chunks):
         # All chunks placed on page=0, top increments by index to ensure logical ordering

@@ -21,12 +21,12 @@ import re
 import numpy as np
 from PIL import Image
 
-from api.db.services.llm_service import LLMBundle
-from api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
-from common.constants import LLMType
-from common.string_utils import clean_markdown_block
-from deepdoc.vision import OCR
-from rag.nlp import attach_media_context, rag_tokenizer, tokenize
+from app.api.db.services.llm_service import LLMBundle
+from app.api.db.joint_services.tenant_model_service import get_tenant_default_model_by_type
+from app.common.constants import LLMType
+from app.common.string_utils import clean_markdown_block
+from app.deepdoc.vision import OCR
+from app.rag.nlp import attach_media_context, rag_tokenizer, tokenize
 
 ocr = OCR()
 

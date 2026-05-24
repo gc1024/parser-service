@@ -17,10 +17,10 @@ from google.oauth2.service_account import Credentials as ServiceAccountCredentia
 from googleapiclient.errors import HttpError  # type: ignore  # type: ignore
 from typing_extensions import override
 
-from common.data_source.config import GOOGLE_DRIVE_CONNECTOR_SIZE_THRESHOLD, GOOGLE_DRIVE_SYNC_TIME_BUFFER_SECONDS, INDEX_BATCH_SIZE, SLIM_BATCH_SIZE, DocumentSource
-from common.data_source.exceptions import ConnectorMissingCredentialError, ConnectorValidationError, CredentialExpiredError, InsufficientPermissionsError
-from common.data_source.google_drive.doc_conversion import PermissionSyncContext, build_slim_document, convert_drive_item_to_document, onyx_document_id_from_drive_file
-from common.data_source.google_drive.file_retrieval import (
+from app.common.data_source.config import GOOGLE_DRIVE_CONNECTOR_SIZE_THRESHOLD, GOOGLE_DRIVE_SYNC_TIME_BUFFER_SECONDS, INDEX_BATCH_SIZE, SLIM_BATCH_SIZE, DocumentSource
+from app.common.data_source.exceptions import ConnectorMissingCredentialError, ConnectorValidationError, CredentialExpiredError, InsufficientPermissionsError
+from app.common.data_source.google_drive.doc_conversion import PermissionSyncContext, build_slim_document, convert_drive_item_to_document, onyx_document_id_from_drive_file
+from app.common.data_source.google_drive.file_retrieval import (
     DriveFileFieldType,
     crawl_folders_for_files,
     get_all_files_for_oauth,
@@ -28,19 +28,19 @@ from common.data_source.google_drive.file_retrieval import (
     get_files_in_shared_drive,
     get_root_folder_id,
 )
-from common.data_source.google_drive.model import DriveRetrievalStage, GoogleDriveCheckpoint, GoogleDriveFileType, RetrievedDriveFile, StageCompletion
-from common.data_source.google_util.auth import get_google_creds
-from common.data_source.google_util.constant import DB_CREDENTIALS_PRIMARY_ADMIN_KEY, MISSING_SCOPES_ERROR_STR, USER_FIELDS
-from common.data_source.google_util.resource import GoogleDriveService, get_admin_service, get_drive_service
-from common.data_source.google_util.util import GoogleFields, execute_paginated_retrieval, get_file_owners
-from common.data_source.google_util.util_threadpool_concurrency import ThreadSafeDict
-from common.data_source.interfaces import (
+from app.common.data_source.google_drive.model import DriveRetrievalStage, GoogleDriveCheckpoint, GoogleDriveFileType, RetrievedDriveFile, StageCompletion
+from app.common.data_source.google_util.auth import get_google_creds
+from app.common.data_source.google_util.constant import DB_CREDENTIALS_PRIMARY_ADMIN_KEY, MISSING_SCOPES_ERROR_STR, USER_FIELDS
+from app.common.data_source.google_util.resource import GoogleDriveService, get_admin_service, get_drive_service
+from app.common.data_source.google_util.util import GoogleFields, execute_paginated_retrieval, get_file_owners
+from app.common.data_source.google_util.util_threadpool_concurrency import ThreadSafeDict
+from app.common.data_source.interfaces import (
     CheckpointedConnectorWithPermSync,
     IndexingHeartbeatInterface,
     SlimConnectorWithPermSync,
 )
-from common.data_source.models import CheckpointOutput, ConnectorFailure, Document, EntityFailure, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch
-from common.data_source.utils import datetime_from_string, parallel_yield, run_functions_tuples_in_parallel
+from app.common.data_source.models import CheckpointOutput, ConnectorFailure, Document, EntityFailure, GenerateSlimDocumentOutput, SecondsSinceUnixEpoch
+from app.common.data_source.utils import datetime_from_string, parallel_yield, run_functions_tuples_in_parallel
 
 MAX_DRIVE_WORKERS = int(os.environ.get("MAX_DRIVE_WORKERS", 4))
 SHARED_DRIVE_PAGES_PER_CHECKPOINT = 2
@@ -1226,7 +1226,7 @@ def yield_all_docs_from_checkpoint_connector(
 
 if __name__ == "__main__":
     import time
-    from common.data_source.google_util.util import get_credentials_from_env
+    from app.common.data_source.google_util.util import get_credentials_from_env
     logging.basicConfig(level=logging.DEBUG)
 
     try:

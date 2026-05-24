@@ -16,7 +16,7 @@ from jira import JIRA
 from jira.resources import Issue
 from pydantic import Field
 
-from common.data_source.config import (
+from app.common.data_source.config import (
     INDEX_BATCH_SIZE,
     JIRA_CONNECTOR_LABELS_TO_SKIP,
     JIRA_CONNECTOR_MAX_TICKET_SIZE,
@@ -25,19 +25,19 @@ from common.data_source.config import (
     ONE_HOUR,
     DocumentSource,
 )
-from common.data_source.exceptions import (
+from app.common.data_source.exceptions import (
     ConnectorMissingCredentialError,
     ConnectorValidationError,
     InsufficientPermissionsError,
     UnexpectedValidationError,
 )
-from common.data_source.interfaces import (
+from app.common.data_source.interfaces import (
     CheckpointedConnectorWithPermSync,
     CheckpointOutputWrapper,
     SecondsSinceUnixEpoch,
     SlimConnectorWithPermSync,
 )
-from common.data_source.jira.utils import (
+from app.common.data_source.jira.utils import (
     JIRA_CLOUD_API_VERSION,
     JIRA_SERVER_API_VERSION,
     build_issue_url,
@@ -49,14 +49,14 @@ from common.data_source.jira.utils import (
     parse_jira_datetime,
     should_skip_issue,
 )
-from common.data_source.models import (
+from app.common.data_source.models import (
     ConnectorCheckpoint,
     ConnectorFailure,
     Document,
     DocumentFailure,
     SlimDocument,
 )
-from common.data_source.utils import is_atlassian_cloud_url, is_atlassian_date_error, scoped_url
+from app.common.data_source.utils import is_atlassian_cloud_url, is_atlassian_date_error, scoped_url
 
 logger = logging.getLogger(__name__)
 

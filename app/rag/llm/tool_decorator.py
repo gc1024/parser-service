@@ -18,7 +18,7 @@
 Lets callers register plain Python functions as LLM tools without having to
 hand-write the OpenAI function schema or build an MCP-style session::
 
-    from rag.llm.tool_decorator import tool
+    from app.rag.llm.tool_decorator import tool
 
     @tool
     def get_weather(city: str) -> str:
@@ -45,7 +45,7 @@ import re
 from collections.abc import Mapping
 from typing import Any, Callable, Union, get_args, get_origin, get_type_hints
 
-from common.misc_utils import thread_pool_exec
+from app.common.misc_utils import thread_pool_exec
 
 
 _PY_TO_JSON: dict[type, str] = {

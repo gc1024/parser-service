@@ -18,16 +18,16 @@ import asyncio
 import logging
 from pathlib import Path
 
-from api.common.check_team_permission import check_file_team_permission, check_kb_team_permission
-from api.db.services.file2document_service import File2DocumentService
-from api.db.services.file_service import FileService
+from app.api.common.check_team_permission import check_file_team_permission, check_kb_team_permission
+from app.api.db.services.file2document_service import File2DocumentService
+from app.api.db.services.file_service import FileService
 
-from api.apps import login_required, current_user
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.utils.api_utils import get_data_error_result, get_json_result, get_request_json, server_error_response, validate_request
-from common.misc_utils import get_uuid
-from api.db import FileType
-from api.db.services.document_service import DocumentService
+from app.api.apps import login_required, current_user
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.utils.api_utils import get_data_error_result, get_json_result, get_request_json, server_error_response, validate_request
+from app.common.misc_utils import get_uuid
+from app.api.db import FileType
+from app.api.db.services.document_service import DocumentService
 
 logger = logging.getLogger(__name__)
 

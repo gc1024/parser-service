@@ -21,11 +21,11 @@ import time
 import copy
 from elasticsearch_dsl import UpdateByQuery, Q, Search
 from elastic_transport import ConnectionTimeout
-from common.decorator import singleton
-from common.doc_store.doc_store_base import MatchTextExpr, OrderByExpr, MatchExpr, MatchDenseExpr, FusionExpr
-from common.doc_store.es_conn_base import ESConnectionBase
-from common.float_utils import get_float
-from common.constants import PAGERANK_FLD, TAG_FLD
+from app.common.decorator import singleton
+from app.common.doc_store.doc_store_base import MatchTextExpr, OrderByExpr, MatchExpr, MatchDenseExpr, FusionExpr
+from app.common.doc_store.es_conn_base import ESConnectionBase
+from app.common.float_utils import get_float
+from app.common.constants import PAGERANK_FLD, TAG_FLD
 
 ATTEMPT_TIME = 2
 MAX_RESULT_WINDOW = 10000

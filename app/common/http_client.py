@@ -18,7 +18,7 @@ import time
 from typing import Any, Dict, Optional
 from urllib.parse import urlparse, urlunparse
 
-from common import settings
+from app.common import settings
 import httpx
 
 logger = logging.getLogger(__name__)

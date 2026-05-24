@@ -20,22 +20,22 @@ from datetime import datetime
 import xxhash
 from peewee import fn, Case, JOIN
 
-from api.constants import IMG_BASE64_PREFIX, FILE_NAME_LEN_LIMIT
-from api.db import PIPELINE_SPECIAL_PROGRESS_FREEZE_TASK_TYPES, FileType, UserTenantRole, CanvasCategory
-from api.db.db_models import DB, Document, Knowledgebase, Task, Tenant, UserTenant, File2Document, File, UserCanvas, User
-from api.db.db_utils import bulk_insert_into_db
-from api.db.services.common_service import CommonService, retry_deadlock_operation
-from api.db.services.knowledgebase_service import KnowledgebaseService
-from api.db.services.doc_metadata_service import DocMetadataService
+from app.api.constants import IMG_BASE64_PREFIX, FILE_NAME_LEN_LIMIT
+from app.api.db import PIPELINE_SPECIAL_PROGRESS_FREEZE_TASK_TYPES, FileType, UserTenantRole, CanvasCategory
+from app.api.db.db_models import DB, Document, Knowledgebase, Task, Tenant, UserTenant, File2Document, File, UserCanvas, User
+from app.api.db.db_utils import bulk_insert_into_db
+from app.api.db.services.common_service import CommonService, retry_deadlock_operation
+from app.api.db.services.knowledgebase_service import KnowledgebaseService
+from app.api.db.services.doc_metadata_service import DocMetadataService
 
-from common import settings
-from common.constants import ParserType, StatusEnum, TaskStatus, SVR_CONSUMER_GROUP_NAME, MAXIMUM_TASK_PAGE_NUMBER
-from common.doc_store.doc_store_base import OrderByExpr
-from common.misc_utils import get_uuid
-from common.time_utils import current_timestamp, get_format_time
+from app.common import settings
+from app.common.constants import ParserType, StatusEnum, TaskStatus, SVR_CONSUMER_GROUP_NAME, MAXIMUM_TASK_PAGE_NUMBER
+from app.common.doc_store.doc_store_base import OrderByExpr
+from app.common.misc_utils import get_uuid
+from app.common.time_utils import current_timestamp, get_format_time
 
-from rag.nlp import search
-from rag.utils.redis_conn import REDIS_CONN
+from app.rag.nlp import search
+from app.rag.utils.redis_conn import REDIS_CONN
 
 
 class DocumentService(CommonService):
@@ -447,7 +447,7 @@ class DocumentService(CommonService):
     @classmethod
     @DB.connection_context()
     def remove_document(cls, doc, tenant_id):
-        from api.db.services.task_service import TaskService, cancel_all_task_of
+        from app.api.db.services.task_service import TaskService, cancel_all_task_of
 
         if not cls.delete_document_and_update_kb_counts(doc.id):
             return True
@@ -918,7 +918,7 @@ class DocumentService(CommonService):
     @classmethod
     @DB.connection_context()
     def _sync_progress(cls, docs: list[dict]):
-        from api.db.services.task_service import TaskService
+        from app.api.db.services.task_service import TaskService
 
         for d in docs:
             try:
@@ -1043,8 +1043,8 @@ class DocumentService(CommonService):
 
     @classmethod
     def run(cls, tenant_id: str, doc: dict, kb_table_num_map: dict):
-        from api.db.services.task_service import queue_dataflow, queue_tasks
-        from api.db.services.file2document_service import File2DocumentService
+        from app.api.db.services.task_service import queue_dataflow, queue_tasks
+        from app.api.db.services.file2document_service import File2DocumentService
 
         doc["tenant_id"] = tenant_id
         doc_parser = doc.get("parser_id", ParserType.NAIVE)

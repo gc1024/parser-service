@@ -30,8 +30,8 @@ import pdfplumber
 from PIL import Image
 
 # Local imports
-from api.constants import FILE_NAME_LEN_LIMIT, IMG_BASE64_PREFIX
-from api.db import FileType
+from app.api.constants import FILE_NAME_LEN_LIMIT, IMG_BASE64_PREFIX
+from app.api.db import FileType
 
 # Robustness and resource limits: reject oversized inputs to avoid DoS and OOM.
 MAX_BLOB_SIZE_THUMBNAIL = 50 * 1024 * 1024  # 50 MiB for thumbnail generation

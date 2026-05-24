@@ -18,13 +18,13 @@
 
 import logging
 
-from common import settings
-from common.metadata_utils import dedupe_list
+from app.common import settings
+from app.common.metadata_utils import dedupe_list
 
 
 def _knowledgebase_service_cls():
     """Lazy import for KnowledgebaseService (used by aggregate; mockable in unit tests)."""
-    from api.db.services.knowledgebase_service import KnowledgebaseService
+    from app.api.db.services.knowledgebase_service import KnowledgebaseService
 
     return KnowledgebaseService
 

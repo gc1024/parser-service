@@ -28,10 +28,10 @@ from infinity.common import ConflictType
 from infinity.index import IndexInfo, IndexType
 from infinity.errors import ErrorCode
 import pandas as pd
-from common.file_utils import get_project_base_directory
-from rag.nlp import is_english
-from common import settings
-from common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr
+from app.common.file_utils import get_project_base_directory
+from app.rag.nlp import is_english
+from app.common import settings
+from app.common.doc_store.doc_store_base import DocStoreConnection, MatchExpr, OrderByExpr
 
 
 # Concurrent CREATE/DROP TABLE on the same Infinity instance can race on
@@ -147,7 +147,7 @@ def _retry_on_meta_contention(
 
 class InfinityConnectionBase(DocStoreConnection):
     def __init__(self, mapping_file_name: str = "infinity_mapping.json", logger_name: str = "ragflow.infinity_conn", table_name_prefix: str="ragflow_"):
-        from common.doc_store.infinity_conn_pool import INFINITY_CONN
+        from app.common.doc_store.infinity_conn_pool import INFINITY_CONN
 
         self.dbName = settings.INFINITY.get("db_name", "default_db")
         self.mapping_file_name = mapping_file_name
@@ -401,7 +401,7 @@ class InfinityConnectionBase(DocStoreConnection):
                 schema = json.load(f)
 
             if parser_id is not None:
-                from common.constants import ParserType
+                from app.common.constants import ParserType
 
                 if parser_id == ParserType.TABLE.value:
                     # Table parser: add chunk_data JSON column to store table-specific fields
@@ -822,7 +822,7 @@ class InfinityConnectionBase(DocStoreConnection):
 
             # Get connection parameters from the Infinity connection pool wrapper
             # We need to use INFINITY_CONN singleton, not the raw ConnectionPool
-            from common.doc_store.infinity_conn_pool import INFINITY_CONN
+            from app.common.doc_store.infinity_conn_pool import INFINITY_CONN
 
             conn_info = INFINITY_CONN.get_conn_uri()
 
